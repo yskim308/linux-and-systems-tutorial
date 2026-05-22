@@ -6,20 +6,15 @@
 #define CSV_FILE "utilization.csv"
 
 int main() {
-  FILE *fp = fopen(CSV_FILE, "a+");
+  FILE *fp = fopen(CSV_FILE, "w");
 
   if (!fp) {
     perror("Failed to open CSV file");
     return 1;
   }
 
-  fseek(fp, 0, SEEK_END);
-  long size = ftell(fp);
-
-  if (size == 0) {
-    fprintf(fp, "time,utilization\n");
-    fflush(fp);
-  }
+  fprintf(fp, "time,utilization\n");
+  fflush(fp);
 
   for (;;) {
     long result = syscall(491);
