@@ -2,7 +2,7 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("output.csv")
+df = pd.read_csv("utilization.csv")
 
 # 2. Convert the 'time' column from strings to datetime objects
 df["time"] = pd.to_datetime(df["time"])
@@ -24,4 +24,4 @@ plt.grid(True, linestyle="--", alpha=0.7)
 plt.tight_layout()
 
 # 5. Display the graph
-plt.show()
+plt.savefig("system_utilization_plot.png", dpi=300)
