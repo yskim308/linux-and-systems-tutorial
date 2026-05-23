@@ -1,602 +1,602 @@
 {
-  "generated_at_utc": "2026-05-23T02:43:21.540681+00:00",
-  "source_directory": "/Users/young/Code/sideProjects/linux-and-systems-tutorial/fio_benchmarks/results/raw",
-  "summary": [
-    {
-      "name": "seq_write_sync",
-      "label": "Sequential Write (Sync)",
-      "operation": "write",
-      "block_size_bytes": 131072,
-      "iodepth": 1,
-      "throughput_mib_per_sec": 240.771,
-      "iops": 1926.17,
-      "latency_mean_usec": 514.402,
-      "latency_p95_usec": 651.264,
-      "latency_p99_usec": 684.032,
-      "fio_cpu_total_percent": 7.713,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "seq_write_async",
-      "label": "Sequential Write (Async)",
-      "operation": "write",
-      "block_size_bytes": 131072,
-      "iodepth": 32,
-      "throughput_mib_per_sec": 497.45,
-      "iops": 3979.597,
-      "latency_mean_usec": 8015.073,
-      "latency_p95_usec": 14745.6,
-      "latency_p99_usec": 16318.464,
-      "fio_cpu_total_percent": 10.301,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "seq_read_sync",
-      "label": "Sequential Read (Sync)",
-      "operation": "read",
-      "block_size_bytes": 131072,
-      "iodepth": 1,
-      "throughput_mib_per_sec": 266.875,
-      "iops": 2135.001,
-      "latency_mean_usec": 466.57,
-      "latency_p95_usec": 880.64,
-      "latency_p99_usec": 1105.92,
-      "fio_cpu_total_percent": 6.933,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "seq_read_async",
-      "label": "Sequential Read (Async)",
-      "operation": "read",
-      "block_size_bytes": 131072,
-      "iodepth": 32,
-      "throughput_mib_per_sec": 2778.833,
-      "iops": 22230.665,
-      "latency_mean_usec": 1419.465,
-      "latency_p95_usec": 1761.28,
-      "latency_p99_usec": 2056.192,
-      "fio_cpu_total_percent": 41.848,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "rand_write_sync",
-      "label": "Random Write (Sync)",
-      "operation": "write",
-      "block_size_bytes": 4096,
-      "iodepth": 1,
-      "throughput_mib_per_sec": 162.141,
-      "iops": 41508.036,
-      "latency_mean_usec": 22.922,
-      "latency_p95_usec": 24.96,
-      "latency_p99_usec": 32.384,
-      "fio_cpu_total_percent": 26.097,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "rand_write_async",
-      "label": "Random Write (Async)",
-      "operation": "write",
-      "block_size_bytes": 4096,
-      "iodepth": 32,
-      "throughput_mib_per_sec": 444.444,
-      "iops": 113777.778,
-      "latency_mean_usec": 276.929,
-      "latency_p95_usec": 321.536,
-      "latency_p99_usec": 3194.88,
-      "fio_cpu_total_percent": 60.451,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "rand_read_sync",
-      "label": "Random Read (Sync)",
-      "operation": "read",
-      "block_size_bytes": 4096,
-      "iodepth": 1,
-      "throughput_mib_per_sec": 24.434,
-      "iops": 6255.151,
-      "latency_mean_usec": 158.367,
-      "latency_p95_usec": 419.84,
-      "latency_p99_usec": 561.152,
-      "fio_cpu_total_percent": 5.432,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "rand_read_async",
-      "label": "Random Read (Async)",
-      "operation": "read",
-      "block_size_bytes": 4096,
-      "iodepth": 32,
-      "throughput_mib_per_sec": 904.194,
-      "iops": 231473.731,
-      "latency_mean_usec": 134.018,
-      "latency_p95_usec": 158.72,
-      "latency_p99_usec": 211.968,
-      "fio_cpu_total_percent": 97.924,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    },
-    {
-      "name": "seq_to_rand",
-      "label": "Random Read After Sequential Write",
-      "operation": "read",
-      "block_size_bytes": 4096,
-      "iodepth": 32,
-      "throughput_mib_per_sec": 622.871,
-      "iops": 159454.988,
-      "latency_mean_usec": 196.963,
-      "latency_p95_usec": 399.36,
-      "latency_p99_usec": 544.768,
-      "fio_cpu_total_percent": 73.258,
-      "mean_iowait_percent": 0.0,
-      "mean_util_percent": 0.0,
-      "mean_queue_depth": 0.0
-    }
-  ],
-  "runs": [
-    {
-      "name": "seq_write_sync",
-      "label": "Sequential Write (Sync)",
-      "operation": "write",
-      "config": {
-        "rw": "write",
-        "ioengine": "sync",
-        "iodepth": 1,
-        "direct": true,
-        "block_size_bytes": 131072,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 8.505,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 240.771,
-        "iops": 1926.17,
-        "latency_usec": {
-          "mean": 514.402,
-          "p50": 509.952,
-          "p95": 651.264,
-          "p99": 684.032,
-          "p99_9": 2211.84
+    "generated_at_utc": "2026-05-23T03:37:05.375972+00:00",
+    "source_directory": "/home/kyle/linux-and-systems-tutorial/fio_benchmarks/results/raw",
+    "summary": [
+        {
+            "name": "seq_write_sync",
+            "label": "Sequential Write (Sync)",
+            "operation": "write",
+            "block_size_bytes": 131072,
+            "iodepth": 1,
+            "throughput_mib_per_sec": 412.803,
+            "iops": 3302.427,
+            "latency_mean_usec": 298.521,
+            "latency_p95_usec": 602.112,
+            "latency_p99_usec": 5734.4,
+            "fio_cpu_total_percent": 11.587,
+            "mean_iowait_percent": 10.508,
+            "mean_util_percent": 88.867,
+            "mean_queue_depth": 0.91
         },
-        "cpu_percent": {
-          "user": 1.905,
-          "system": 5.808,
-          "total": 7.713
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "seq_write_async",
+            "label": "Sequential Write (Async)",
+            "operation": "write",
+            "block_size_bytes": 131072,
+            "iodepth": 32,
+            "throughput_mib_per_sec": 497.45,
+            "iops": 3979.597,
+            "latency_mean_usec": 8015.073,
+            "latency_p95_usec": 14745.6,
+            "latency_p99_usec": 16318.464,
+            "fio_cpu_total_percent": 10.301,
+            "mean_iowait_percent": 0.0,
+            "mean_util_percent": 0.0,
+            "mean_queue_depth": 0.0
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    },
-    {
-      "name": "seq_write_async",
-      "label": "Sequential Write (Async)",
-      "operation": "write",
-      "config": {
-        "rw": "write",
-        "ioengine": "io_uring",
-        "iodepth": 32,
-        "direct": true,
-        "block_size_bytes": 131072,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 4.116,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 497.45,
-        "iops": 3979.597,
-        "latency_usec": {
-          "mean": 8015.073,
-          "p50": 7831.552,
-          "p95": 14745.6,
-          "p99": 16318.464,
-          "p99_9": 19791.872
+        {
+            "name": "seq_read_sync",
+            "label": "Sequential Read (Sync)",
+            "operation": "read",
+            "block_size_bytes": 131072,
+            "iodepth": 1,
+            "throughput_mib_per_sec": 266.875,
+            "iops": 2135.001,
+            "latency_mean_usec": 466.57,
+            "latency_p95_usec": 880.64,
+            "latency_p99_usec": 1105.92,
+            "fio_cpu_total_percent": 6.933,
+            "mean_iowait_percent": 0.0,
+            "mean_util_percent": 0.0,
+            "mean_queue_depth": 0.0
         },
-        "cpu_percent": {
-          "user": 2.187,
-          "system": 8.115,
-          "total": 10.301
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "seq_read_async",
+            "label": "Sequential Read (Async)",
+            "operation": "read",
+            "block_size_bytes": 131072,
+            "iodepth": 32,
+            "throughput_mib_per_sec": 2752.688,
+            "iops": 22021.505,
+            "latency_mean_usec": 1435.663,
+            "latency_p95_usec": 1728.512,
+            "latency_p99_usec": 1990.656,
+            "fio_cpu_total_percent": 42.012,
+            "mean_iowait_percent": 0.065,
+            "mean_util_percent": 43.05,
+            "mean_queue_depth": 17.38
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    },
-    {
-      "name": "seq_read_sync",
-      "label": "Sequential Read (Sync)",
-      "operation": "read",
-      "config": {
-        "rw": "read",
-        "ioengine": "sync",
-        "iodepth": 1,
-        "direct": true,
-        "block_size_bytes": 131072,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 7.673,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 266.875,
-        "iops": 2135.001,
-        "latency_usec": {
-          "mean": 466.57,
-          "p50": 415.744,
-          "p95": 880.64,
-          "p99": 1105.92,
-          "p99_9": 1400.832
+        {
+            "name": "rand_write_sync",
+            "label": "Random Write (Sync)",
+            "operation": "write",
+            "block_size_bytes": 4096,
+            "iodepth": 1,
+            "throughput_mib_per_sec": 162.141,
+            "iops": 41508.036,
+            "latency_mean_usec": 22.922,
+            "latency_p95_usec": 24.96,
+            "latency_p99_usec": 32.384,
+            "fio_cpu_total_percent": 26.097,
+            "mean_iowait_percent": 0.0,
+            "mean_util_percent": 0.0,
+            "mean_queue_depth": 0.0
         },
-        "cpu_percent": {
-          "user": 1.017,
-          "system": 5.917,
-          "total": 6.933
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "rand_write_async",
+            "label": "Random Write (Async)",
+            "operation": "write",
+            "block_size_bytes": 4096,
+            "iodepth": 32,
+            "throughput_mib_per_sec": 538.551,
+            "iops": 137868.939,
+            "latency_mean_usec": 226.589,
+            "latency_p95_usec": 305.152,
+            "latency_p99_usec": 1011.712,
+            "fio_cpu_total_percent": 80.234,
+            "mean_iowait_percent": 0.014,
+            "mean_util_percent": 79.944,
+            "mean_queue_depth": 13.388
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    },
-    {
-      "name": "seq_read_async",
-      "label": "Sequential Read (Async)",
-      "operation": "read",
-      "config": {
-        "rw": "read",
-        "ioengine": "io_uring",
-        "iodepth": 32,
-        "direct": true,
-        "block_size_bytes": 131072,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 0.736,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 2778.833,
-        "iops": 22230.665,
-        "latency_usec": {
-          "mean": 1419.465,
-          "p50": 1384.448,
-          "p95": 1761.28,
-          "p99": 2056.192,
-          "p99_9": 2441.216
+        {
+            "name": "rand_read_sync",
+            "label": "Random Read (Sync)",
+            "operation": "read",
+            "block_size_bytes": 4096,
+            "iodepth": 1,
+            "throughput_mib_per_sec": 24.434,
+            "iops": 6255.151,
+            "latency_mean_usec": 158.367,
+            "latency_p95_usec": 419.84,
+            "latency_p99_usec": 561.152,
+            "fio_cpu_total_percent": 5.432,
+            "mean_iowait_percent": 0.0,
+            "mean_util_percent": 0.0,
+            "mean_queue_depth": 0.0
         },
-        "cpu_percent": {
-          "user": 4.076,
-          "system": 37.772,
-          "total": 41.848
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "rand_read_async",
+            "label": "Random Read (Async)",
+            "operation": "read",
+            "block_size_bytes": 4096,
+            "iodepth": 32,
+            "throughput_mib_per_sec": 802.759,
+            "iops": 205506.428,
+            "latency_mean_usec": 151.725,
+            "latency_p95_usec": 185.344,
+            "latency_p99_usec": 391.168,
+            "fio_cpu_total_percent": 87.047,
+            "mean_iowait_percent": 0.0,
+            "mean_util_percent": 62.35,
+            "mean_queue_depth": 20.075
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
+        {
+            "name": "seq_to_rand",
+            "label": "Random Read After Sequential Write",
+            "operation": "read",
+            "block_size_bytes": 4096,
+            "iodepth": 32,
+            "throughput_mib_per_sec": 521.067,
+            "iops": 133393.039,
+            "latency_mean_usec": 236.418,
+            "latency_p95_usec": 342.016,
+            "latency_p99_usec": 411.648,
+            "fio_cpu_total_percent": 56.336,
+            "mean_iowait_percent": 0.088,
+            "mean_util_percent": 56.01,
+            "mean_queue_depth": 25.476
         }
-      }
-    },
-    {
-      "name": "rand_write_async",
-      "label": "Random Write (Async)",
-      "operation": "write",
-      "config": {
-        "rw": "randwrite",
-        "ioengine": "io_uring",
-        "iodepth": 32,
-        "direct": true,
-        "block_size_bytes": 4096,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 4.607,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 444.444,
-        "iops": 113777.778,
-        "latency_usec": {
-          "mean": 276.929,
-          "p50": 222.208,
-          "p95": 321.536,
-          "p99": 3194.88,
-          "p99_9": 6193.152
+    ],
+    "runs": [
+        {
+            "name": "seq_write_sync",
+            "label": "Sequential Write (Sync)",
+            "operation": "write",
+            "config": {
+                "rw": "write",
+                "ioengine": "sync",
+                "iodepth": 1,
+                "direct": true,
+                "block_size_bytes": 131072,
+                "size_bytes": 5368709120,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 12.402,
+                "bytes_transferred": 5368709120,
+                "throughput_mib_per_sec": 412.803,
+                "iops": 3302.427,
+                "latency_usec": {
+                    "mean": 298.521,
+                    "p50": 114.176,
+                    "p95": 602.112,
+                    "p99": 5734.4,
+                    "p99_9": 10944.512
+                },
+                "cpu_percent": {
+                    "user": 1.887,
+                    "system": 9.7,
+                    "total": 11.587
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 12,
+                "cpu": {
+                    "mean_iowait_percent": 10.508,
+                    "max_iowait_percent": 11.13
+                },
+                "device_stats": {
+                    "mean_util_percent": 88.867,
+                    "max_util_percent": 94.5,
+                    "mean_queue_depth": 0.91,
+                    "max_queue_depth": 1.06,
+                    "mean_read_await_ms": 0.0,
+                    "mean_write_await_ms": 0.284,
+                    "mean_read_mib_per_sec": 0.0,
+                    "mean_write_mib_per_sec": 406.31
+                }
+            }
         },
-        "cpu_percent": {
-          "user": 17.734,
-          "system": 42.718,
-          "total": 60.451
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "seq_write_async",
+            "label": "Sequential Write (Async)",
+            "operation": "write",
+            "config": {
+                "rw": "write",
+                "ioengine": "io_uring",
+                "iodepth": 32,
+                "direct": true,
+                "block_size_bytes": 131072,
+                "size_bytes": 2147483648,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 4.116,
+                "bytes_transferred": 2147483648,
+                "throughput_mib_per_sec": 497.45,
+                "iops": 3979.597,
+                "latency_usec": {
+                    "mean": 8015.073,
+                    "p50": 7831.552,
+                    "p95": 14745.6,
+                    "p99": 16318.464,
+                    "p99_9": 19791.872
+                },
+                "cpu_percent": {
+                    "user": 2.187,
+                    "system": 8.115,
+                    "total": 10.301
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 0,
+                "cpu": {
+                    "mean_iowait_percent": 0.0,
+                    "max_iowait_percent": 0.0
+                },
+                "device_stats": {
+                    "mean_util_percent": 0.0,
+                    "max_util_percent": 0.0,
+                    "mean_queue_depth": 0.0,
+                    "max_queue_depth": 0.0,
+                    "mean_read_await_ms": 0.0,
+                    "mean_write_await_ms": 0.0,
+                    "mean_read_mib_per_sec": 0.0,
+                    "mean_write_mib_per_sec": 0.0
+                }
+            }
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    },
-    {
-      "name": "rand_write_sync",
-      "label": "Random Write (Sync)",
-      "operation": "write",
-      "config": {
-        "rw": "randwrite",
-        "ioengine": "sync",
-        "iodepth": 1,
-        "direct": true,
-        "block_size_bytes": 4096,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 12.63,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 162.141,
-        "iops": 41508.036,
-        "latency_usec": {
-          "mean": 22.922,
-          "p50": 22.4,
-          "p95": 24.96,
-          "p99": 32.384,
-          "p99_9": 73.216
+        {
+            "name": "seq_read_sync",
+            "label": "Sequential Read (Sync)",
+            "operation": "read",
+            "config": {
+                "rw": "read",
+                "ioengine": "sync",
+                "iodepth": 1,
+                "direct": true,
+                "block_size_bytes": 131072,
+                "size_bytes": 2147483648,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 7.673,
+                "bytes_transferred": 2147483648,
+                "throughput_mib_per_sec": 266.875,
+                "iops": 2135.001,
+                "latency_usec": {
+                    "mean": 466.57,
+                    "p50": 415.744,
+                    "p95": 880.64,
+                    "p99": 1105.92,
+                    "p99_9": 1400.832
+                },
+                "cpu_percent": {
+                    "user": 1.017,
+                    "system": 5.917,
+                    "total": 6.933
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 0,
+                "cpu": {
+                    "mean_iowait_percent": 0.0,
+                    "max_iowait_percent": 0.0
+                },
+                "device_stats": {
+                    "mean_util_percent": 0.0,
+                    "max_util_percent": 0.0,
+                    "mean_queue_depth": 0.0,
+                    "max_queue_depth": 0.0,
+                    "mean_read_await_ms": 0.0,
+                    "mean_write_await_ms": 0.0,
+                    "mean_read_mib_per_sec": 0.0,
+                    "mean_write_mib_per_sec": 0.0
+                }
+            }
         },
-        "cpu_percent": {
-          "user": 7.458,
-          "system": 18.638,
-          "total": 26.097
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "seq_read_async",
+            "label": "Sequential Read (Async)",
+            "operation": "read",
+            "config": {
+                "rw": "read",
+                "ioengine": "io_uring",
+                "iodepth": 32,
+                "direct": true,
+                "block_size_bytes": 131072,
+                "size_bytes": 5368709120,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 1.859,
+                "bytes_transferred": 5368709120,
+                "throughput_mib_per_sec": 2752.688,
+                "iops": 22021.505,
+                "latency_usec": {
+                    "mean": 1435.663,
+                    "p50": 1400.832,
+                    "p95": 1728.512,
+                    "p99": 1990.656,
+                    "p99_9": 2375.68
+                },
+                "cpu_percent": {
+                    "user": 3.389,
+                    "system": 38.623,
+                    "total": 42.012
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 2,
+                "cpu": {
+                    "mean_iowait_percent": 0.065,
+                    "max_iowait_percent": 0.13
+                },
+                "device_stats": {
+                    "mean_util_percent": 43.05,
+                    "max_util_percent": 78.0,
+                    "mean_queue_depth": 17.38,
+                    "max_queue_depth": 31.71,
+                    "mean_read_await_ms": 1.435,
+                    "mean_write_await_ms": 0.155,
+                    "mean_read_mib_per_sec": 1513.5,
+                    "mean_write_mib_per_sec": 0.154
+                }
+            }
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    },
-    {
-      "name": "rand_read_async",
-      "label": "Random Read (Async)",
-      "operation": "read",
-      "config": {
-        "rw": "randread",
-        "ioengine": "io_uring",
-        "iodepth": 32,
-        "direct": true,
-        "block_size_bytes": 4096,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 2.264,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 904.194,
-        "iops": 231473.731,
-        "latency_usec": {
-          "mean": 134.018,
-          "p50": 132.096,
-          "p95": 158.72,
-          "p99": 211.968,
-          "p99_9": 268.288
+        {
+            "name": "rand_write_async",
+            "label": "Random Write (Async)",
+            "operation": "write",
+            "config": {
+                "rw": "randwrite",
+                "ioengine": "io_uring",
+                "iodepth": 32,
+                "direct": true,
+                "block_size_bytes": 4096,
+                "size_bytes": 5368709120,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 9.506,
+                "bytes_transferred": 5368709120,
+                "throughput_mib_per_sec": 538.551,
+                "iops": 137868.939,
+                "latency_usec": {
+                    "mean": 226.589,
+                    "p50": 171.008,
+                    "p95": 305.152,
+                    "p99": 1011.712,
+                    "p99_9": 8585.216
+                },
+                "cpu_percent": {
+                    "user": 20.734,
+                    "system": 59.499,
+                    "total": 80.234
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 9,
+                "cpu": {
+                    "mean_iowait_percent": 0.014,
+                    "max_iowait_percent": 0.13
+                },
+                "device_stats": {
+                    "mean_util_percent": 79.944,
+                    "max_util_percent": 86.8,
+                    "mean_queue_depth": 13.388,
+                    "max_queue_depth": 27.1,
+                    "mean_read_await_ms": 0.0,
+                    "mean_write_await_ms": 0.11,
+                    "mean_read_mib_per_sec": 0.0,
+                    "mean_write_mib_per_sec": 529.653
+                }
+            }
         },
-        "cpu_percent": {
-          "user": 25.795,
-          "system": 72.129,
-          "total": 97.924
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "rand_write_sync",
+            "label": "Random Write (Sync)",
+            "operation": "write",
+            "config": {
+                "rw": "randwrite",
+                "ioengine": "sync",
+                "iodepth": 1,
+                "direct": true,
+                "block_size_bytes": 4096,
+                "size_bytes": 2147483648,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 12.63,
+                "bytes_transferred": 2147483648,
+                "throughput_mib_per_sec": 162.141,
+                "iops": 41508.036,
+                "latency_usec": {
+                    "mean": 22.922,
+                    "p50": 22.4,
+                    "p95": 24.96,
+                    "p99": 32.384,
+                    "p99_9": 73.216
+                },
+                "cpu_percent": {
+                    "user": 7.458,
+                    "system": 18.638,
+                    "total": 26.097
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 0,
+                "cpu": {
+                    "mean_iowait_percent": 0.0,
+                    "max_iowait_percent": 0.0
+                },
+                "device_stats": {
+                    "mean_util_percent": 0.0,
+                    "max_util_percent": 0.0,
+                    "mean_queue_depth": 0.0,
+                    "max_queue_depth": 0.0,
+                    "mean_read_await_ms": 0.0,
+                    "mean_write_await_ms": 0.0,
+                    "mean_read_mib_per_sec": 0.0,
+                    "mean_write_mib_per_sec": 0.0
+                }
+            }
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    },
-    {
-      "name": "rand_read_sync",
-      "label": "Random Read (Sync)",
-      "operation": "read",
-      "config": {
-        "rw": "randread",
-        "ioengine": "sync",
-        "iodepth": 1,
-        "direct": true,
-        "block_size_bytes": 4096,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 83.816,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 24.434,
-        "iops": 6255.151,
-        "latency_usec": {
-          "mean": 158.367,
-          "p50": 115.2,
-          "p95": 419.84,
-          "p99": 561.152,
-          "p99_9": 741.376
+        {
+            "name": "rand_read_async",
+            "label": "Random Read (Async)",
+            "operation": "read",
+            "config": {
+                "rw": "randread",
+                "ioengine": "io_uring",
+                "iodepth": 32,
+                "direct": true,
+                "block_size_bytes": 4096,
+                "size_bytes": 5368709120,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 6.377,
+                "bytes_transferred": 5368709120,
+                "throughput_mib_per_sec": 802.759,
+                "iops": 205506.428,
+                "latency_usec": {
+                    "mean": 151.725,
+                    "p50": 134.144,
+                    "p95": 185.344,
+                    "p99": 391.168,
+                    "p99_9": 2768.896
+                },
+                "cpu_percent": {
+                    "user": 21.923,
+                    "system": 65.125,
+                    "total": 87.047
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 6,
+                "cpu": {
+                    "mean_iowait_percent": 0.0,
+                    "max_iowait_percent": 0.0
+                },
+                "device_stats": {
+                    "mean_util_percent": 62.35,
+                    "max_util_percent": 71.1,
+                    "mean_queue_depth": 20.075,
+                    "max_queue_depth": 25.66,
+                    "mean_read_await_ms": 0.105,
+                    "mean_write_await_ms": 0.25,
+                    "mean_read_mib_per_sec": 754.745,
+                    "mean_write_mib_per_sec": 0.014
+                }
+            }
         },
-        "cpu_percent": {
-          "user": 1.638,
-          "system": 3.794,
-          "total": 5.432
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
+        {
+            "name": "rand_read_sync",
+            "label": "Random Read (Sync)",
+            "operation": "read",
+            "config": {
+                "rw": "randread",
+                "ioengine": "sync",
+                "iodepth": 1,
+                "direct": true,
+                "block_size_bytes": 4096,
+                "size_bytes": 2147483648,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 83.816,
+                "bytes_transferred": 2147483648,
+                "throughput_mib_per_sec": 24.434,
+                "iops": 6255.151,
+                "latency_usec": {
+                    "mean": 158.367,
+                    "p50": 115.2,
+                    "p95": 419.84,
+                    "p99": 561.152,
+                    "p99_9": 741.376
+                },
+                "cpu_percent": {
+                    "user": 1.638,
+                    "system": 3.794,
+                    "total": 5.432
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 0,
+                "cpu": {
+                    "mean_iowait_percent": 0.0,
+                    "max_iowait_percent": 0.0
+                },
+                "device_stats": {
+                    "mean_util_percent": 0.0,
+                    "max_util_percent": 0.0,
+                    "mean_queue_depth": 0.0,
+                    "max_queue_depth": 0.0,
+                    "mean_read_await_ms": 0.0,
+                    "mean_write_await_ms": 0.0,
+                    "mean_read_mib_per_sec": 0.0,
+                    "mean_write_mib_per_sec": 0.0
+                }
+            }
         },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
+        {
+            "name": "seq_to_rand",
+            "label": "Random Read After Sequential Write",
+            "operation": "read",
+            "config": {
+                "rw": "randread",
+                "ioengine": "io_uring",
+                "iodepth": 32,
+                "direct": true,
+                "block_size_bytes": 4096,
+                "size_bytes": 5368709120,
+                "filename": "testfile.img"
+            },
+            "fio": {
+                "runtime_seconds": 9.825,
+                "bytes_transferred": 5368709120,
+                "throughput_mib_per_sec": 521.067,
+                "iops": 133393.039,
+                "latency_usec": {
+                    "mean": 236.418,
+                    "p50": 234.496,
+                    "p95": 342.016,
+                    "p99": 411.648,
+                    "p99_9": 544.768
+                },
+                "cpu_percent": {
+                    "user": 14.331,
+                    "system": 42.005,
+                    "total": 56.336
+                }
+            },
+            "iostat": {
+                "device": "nvme0n1",
+                "sample_count": 10,
+                "cpu": {
+                    "mean_iowait_percent": 0.088,
+                    "max_iowait_percent": 0.63
+                },
+                "device_stats": {
+                    "mean_util_percent": 56.01,
+                    "max_util_percent": 64.0,
+                    "mean_queue_depth": 25.476,
+                    "max_queue_depth": 28.28,
+                    "mean_read_await_ms": 0.21,
+                    "mean_write_await_ms": 0.227,
+                    "mean_read_mib_per_sec": 472.252,
+                    "mean_write_mib_per_sec": 0.895
+                }
+            }
         }
-      }
-    },
-    {
-      "name": "seq_to_rand",
-      "label": "Random Read After Sequential Write",
-      "operation": "read",
-      "config": {
-        "rw": "randread",
-        "ioengine": "io_uring",
-        "iodepth": 32,
-        "direct": true,
-        "block_size_bytes": 4096,
-        "size_bytes": 2147483648,
-        "filename": "testfile.img"
-      },
-      "fio": {
-        "runtime_seconds": 3.287,
-        "bytes_transferred": 2147483648,
-        "throughput_mib_per_sec": 622.871,
-        "iops": 159454.988,
-        "latency_usec": {
-          "mean": 196.963,
-          "p50": 166.912,
-          "p95": 399.36,
-          "p99": 544.768,
-          "p99_9": 708.608
-        },
-        "cpu_percent": {
-          "user": 20.475,
-          "system": 52.784,
-          "total": 73.258
-        }
-      },
-      "iostat": {
-        "device": "nvme0n1",
-        "sample_count": 0,
-        "cpu": {
-          "mean_iowait_percent": 0.0,
-          "max_iowait_percent": 0.0
-        },
-        "device_stats": {
-          "mean_util_percent": 0.0,
-          "max_util_percent": 0.0,
-          "mean_queue_depth": 0.0,
-          "max_queue_depth": 0.0,
-          "mean_read_await_ms": 0.0,
-          "mean_write_await_ms": 0.0,
-          "mean_read_mib_per_sec": 0.0,
-          "mean_write_mib_per_sec": 0.0
-        }
-      }
-    }
-  ]
+    ]
 }
