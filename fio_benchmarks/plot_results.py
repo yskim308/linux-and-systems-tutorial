@@ -2,73 +2,49 @@ import json
 import os
 from pathlib import Path
 
-import matplotlib
-import matplotlib.pyplot as plt
-
 BASE_DIR = Path(__file__).resolve().parent
 MPLCONFIGDIR = BASE_DIR / ".matplotlib"
 MPLCONFIGDIR.mkdir(parents=True, exist_ok=True)
 os.environ["MPLCONFIGDIR"] = str(MPLCONFIGDIR)
 
+XDG_CACHE_HOME = BASE_DIR / ".cache"
+XDG_CACHE_HOME.mkdir(parents=True, exist_ok=True)
+os.environ["XDG_CACHE_HOME"] = str(XDG_CACHE_HOME)
+
+import matplotlib
 
 matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 INPUT_PATH = BASE_DIR / "results" / "processed" / "consolidated.json"
+RAW_DIR = BASE_DIR / "results" / "raw"
 PLOTS_DIR = BASE_DIR / "results" / "plots"
+
+SYNC_COLOR = "#4C78A8"
+ASYNC_COLOR = "#E45756"
+SEQ_COLOR = "#72B7B2"
+RAND_COLOR = "#F58518"
+MEAN_COLOR = "#4C78A8"
+P95_COLOR = "#F58518"
+P99_COLOR = "#E45756"
+CPU_COLOR = "#E45756"
+UTIL_COLOR = "#54A24B"
+STATE_COLOR = "#B279A2"
 
 
 def main():
     data = json.loads(INPUT_PATH.read_text(encoding="utf-8"))
-    summary = data["summary"]
-    runs = data["runs"]
-
-    seq_write_sync = find_by_name(summary, "seq_write_sync")
-    seq_read_async = find_by_name(summary, "seq_read_async")
-    rand_write_async = find_by_name(summary, "rand_write_async")
-    rand_read_async = find_by_name(summary, "rand_read_async")
-    seq_to_rand = find_by_name(summary, "seq_to_rand")
-
-    rand_write_async_run = find_by_name(runs, "rand_write_async")
-    rand_read_async_run = find_by_name(runs, "rand_read_async")
-    seq_to_rand_run = find_by_name(runs, "seq_to_rand")
+    summary = {item["name"]: item for item in data["summary"]}
+    runs = {item["name"]: item for item in data["runs"]}
 
     PLOTS_DIR.mkdir(parents=True, exist_ok=True)
-
     plt.style.use("ggplot")
 
-    plot_throughput(
-        seq_write_sync,
-        seq_read_async,
-        rand_write_async,
-        rand_read_async,
-        seq_to_rand,
-    )
-    plot_random_iops(rand_write_async, rand_read_async, seq_to_rand)
-    plot_random_latency(rand_write_async_run, rand_read_async_run, seq_to_rand_run)
-    plot_device_pressure(
-        seq_write_sync,
-        seq_read_async,
-        rand_write_async,
-        rand_read_async,
-        seq_to_rand,
-    )
-    plot_cpu_and_iowait(
-        seq_write_sync,
-        seq_read_async,
-        rand_write_async,
-        rand_read_async,
-        seq_to_rand,
-    )
-    plot_random_read_comparison(
-        rand_read_async, seq_to_rand, rand_read_async_run, seq_to_rand_run
-    )
-
-
-def find_by_name(items, name):
-    for item in items:
-        if item["name"] == name:
-            return item
-    raise ValueError(f"Missing data for {name}")
+    plot_box_specs(summary)
+    plot_real_world_physics(summary)
+    plot_resource_overhead(summary)
+    plot_latency_distribution_standalone(runs)
+    plot_state_penalty(summary)
 
 
 def save_plot(figure, filename):
@@ -90,220 +66,314 @@ def add_value_labels(axis, bars, decimals=1):
         )
 
 
-def plot_throughput(
-    seq_write_sync, seq_read_async, rand_write_async, rand_read_async, seq_to_rand
-):
-    labels = [
-        "Seq Write",
-        "Seq Read",
-        "Rand Write",
-        "Rand Read",
-        "Seq->Rand",
-    ]
-    values = [
-        seq_write_sync["throughput_mib_per_sec"],
-        seq_read_async["throughput_mib_per_sec"],
-        rand_write_async["throughput_mib_per_sec"],
-        rand_read_async["throughput_mib_per_sec"],
-        seq_to_rand["throughput_mib_per_sec"],
+def add_point_labels(axis, x_positions, values, decimals=1, y_offset=6):
+    for x_pos, value in zip(x_positions, values):
+        axis.annotate(
+            f"{value:.{decimals}f}",
+            (x_pos, value),
+            textcoords="offset points",
+            xytext=(0, y_offset),
+            ha="center",
+            fontsize=9,
+        )
+
+
+def async_workloads():
+    return [
+        ("seq_write_async", "Seq Write"),
+        ("seq_read_async", "Seq Read"),
+        ("rand_write_async", "Rand Write"),
+        ("rand_read_async", "Rand Read"),
+        ("seq_to_rand", "Seq->Rand Read"),
     ]
 
-    figure, axis = plt.subplots(figsize=(10, 5))
-    bars = axis.bar(
-        labels, values, color=["#4C78A8", "#72B7B2", "#E45756", "#54A24B", "#F58518"]
+
+def fio_disk_util_percent(name):
+    raw_report = json.loads((RAW_DIR / f"{name}.json").read_text(encoding="utf-8"))
+    disk_util = raw_report.get("disk_util") or []
+
+    if not disk_util:
+        return 0.0
+
+    return round(float(disk_util[0].get("util", 0.0)), 3)
+
+
+def effective_device_util(summary_item):
+    util = summary_item.get("mean_util_percent")
+
+    if util is not None and util > 0:
+        return util
+
+    return fio_disk_util_percent(summary_item["name"])
+
+
+def draw_seq_bandwidth(axis, summary):
+    labels = ["Read", "Write"]
+    sync_values = [
+        summary["seq_read_sync"]["throughput_mib_per_sec"],
+        summary["seq_write_sync"]["throughput_mib_per_sec"],
+    ]
+    async_values = [
+        summary["seq_read_async"]["throughput_mib_per_sec"],
+        summary["seq_write_async"]["throughput_mib_per_sec"],
+    ]
+
+    positions = [0, 1]
+    width = 0.35
+
+    sync_bars = axis.bar(
+        [x - width / 2 for x in positions],
+        sync_values,
+        width=width,
+        label="Sync (QD=1)",
+        color=SYNC_COLOR,
     )
-    axis.set_title("Throughput by Workload")
+    async_bars = axis.bar(
+        [x + width / 2 for x in positions],
+        async_values,
+        width=width,
+        label="Async io_uring (QD=32)",
+        color=ASYNC_COLOR,
+    )
+
+    axis.set_title("Sequential Bandwidth Limit (128K, MiB/s)")
     axis.set_ylabel("MiB/s")
-    add_value_labels(axis, bars)
-    save_plot(figure, "01_throughput.png")
-
-
-def plot_random_iops(rand_write_async, rand_read_async, seq_to_rand):
-    labels = [
-        "Rand Write",
-        "Rand Read",
-        "Seq->Rand Read",
-    ]
-    values = [
-        rand_write_async["iops"],
-        rand_read_async["iops"],
-        seq_to_rand["iops"],
-    ]
-
-    figure, axis = plt.subplots(figsize=(8, 5))
-    bars = axis.bar(labels, values, color=["#E45756", "#54A24B", "#F58518"])
-    axis.set_title("4K Random IOPS")
-    axis.set_ylabel("IOPS")
-    add_value_labels(axis, bars, decimals=0)
-    save_plot(figure, "02_random_iops.png")
-
-
-def plot_random_latency(rand_write_async_run, rand_read_async_run, seq_to_rand_run):
-    labels = ["Rand Write", "Rand Read", "Seq->Rand Read"]
-    p50 = [
-        rand_write_async_run["fio"]["latency_usec"]["p50"],
-        rand_read_async_run["fio"]["latency_usec"]["p50"],
-        seq_to_rand_run["fio"]["latency_usec"]["p50"],
-    ]
-    p95 = [
-        rand_write_async_run["fio"]["latency_usec"]["p95"],
-        rand_read_async_run["fio"]["latency_usec"]["p95"],
-        seq_to_rand_run["fio"]["latency_usec"]["p95"],
-    ]
-    p99 = [
-        rand_write_async_run["fio"]["latency_usec"]["p99"],
-        rand_read_async_run["fio"]["latency_usec"]["p99"],
-        seq_to_rand_run["fio"]["latency_usec"]["p99"],
-    ]
-
-    positions = [0, 1, 2]
-    width = 0.25
-
-    figure, axis = plt.subplots(figsize=(9, 5))
-    bars1 = axis.bar(
-        [x - width for x in positions], p50, width=width, label="p50", color="#4C78A8"
-    )
-    bars2 = axis.bar(positions, p95, width=width, label="p95", color="#F58518")
-    bars3 = axis.bar(
-        [x + width for x in positions], p99, width=width, label="p99", color="#E45756"
-    )
-    axis.set_title("4K Random Read/Write Latency")
-    axis.set_ylabel("Latency (usec)")
     axis.set_xticks(positions)
     axis.set_xticklabels(labels)
     axis.legend()
-    add_value_labels(axis, bars1)
-    add_value_labels(axis, bars2)
-    add_value_labels(axis, bars3)
-    save_plot(figure, "03_random_latency.png")
+    add_value_labels(axis, sync_bars)
+    add_value_labels(axis, async_bars)
 
 
-def plot_device_pressure(
-    seq_write_sync, seq_read_async, rand_write_async, rand_read_async, seq_to_rand
-):
-    labels = [
-        "Seq Write",
-        "Seq Read",
-        "Rand Write",
-        "Rand Read",
-        "Seq->Rand",
-    ]
-    util_values = [
-        seq_write_sync["mean_util_percent"],
-        seq_read_async["mean_util_percent"],
-        rand_write_async["mean_util_percent"],
-        rand_read_async["mean_util_percent"],
-        seq_to_rand["mean_util_percent"],
-    ]
-    queue_values = [
-        seq_write_sync["mean_queue_depth"],
-        seq_read_async["mean_queue_depth"],
-        rand_write_async["mean_queue_depth"],
-        rand_read_async["mean_queue_depth"],
-        seq_to_rand["mean_queue_depth"],
+def draw_throughput_illusion(axis, summary):
+    labels = ["Async Seq Read\n128K", "Async Rand Read\n4K"]
+    values = [
+        summary["seq_read_async"]["throughput_mib_per_sec"],
+        summary["rand_read_async"]["throughput_mib_per_sec"],
     ]
 
-    figure, axes = plt.subplots(1, 2, figsize=(12, 5))
-
-    util_bars = axes[0].bar(labels, util_values, color="#4C78A8")
-    axes[0].set_title("Mean Device Utilization")
-    axes[0].set_ylabel("%util")
-    axes[0].tick_params(axis="x", rotation=20)
-    add_value_labels(axes[0], util_bars)
-
-    queue_bars = axes[1].bar(labels, queue_values, color="#72B7B2")
-    axes[1].set_title("Mean Device Queue Depth")
-    axes[1].set_ylabel("aqu-sz")
-    axes[1].tick_params(axis="x", rotation=20)
-    add_value_labels(axes[1], queue_bars)
-
-    save_plot(figure, "04_device_pressure.png")
+    bars = axis.bar(labels, values, color=[SEQ_COLOR, RAND_COLOR])
+    axis.set_title("The Throughput Illusion (MiB/s)")
+    axis.set_ylabel("MiB/s")
+    add_value_labels(axis, bars)
 
 
-def plot_cpu_and_iowait(
-    seq_write_sync, seq_read_async, rand_write_async, rand_read_async, seq_to_rand
-):
-    labels = [
-        "Seq Write",
-        "Seq Read",
-        "Rand Write",
-        "Rand Read",
-        "Seq->Rand",
+def draw_random_iops(axis, summary):
+    labels = ["Read", "Write"]
+    sync_values = [
+        summary["rand_read_sync"]["iops"],
+        summary["rand_write_sync"]["iops"],
     ]
-    cpu_values = [
-        seq_write_sync["fio_cpu_total_percent"],
-        seq_read_async["fio_cpu_total_percent"],
-        rand_write_async["fio_cpu_total_percent"],
-        rand_read_async["fio_cpu_total_percent"],
-        seq_to_rand["fio_cpu_total_percent"],
-    ]
-    iowait_values = [
-        seq_write_sync["mean_iowait_percent"],
-        seq_read_async["mean_iowait_percent"],
-        rand_write_async["mean_iowait_percent"],
-        rand_read_async["mean_iowait_percent"],
-        seq_to_rand["mean_iowait_percent"],
+    async_values = [
+        summary["rand_read_async"]["iops"],
+        summary["rand_write_async"]["iops"],
     ]
 
-    figure, axes = plt.subplots(1, 2, figsize=(12, 5))
+    positions = [0, 1]
+    width = 0.35
 
-    cpu_bars = axes[0].bar(labels, cpu_values, color="#E45756")
-    axes[0].set_title("fio CPU Usage")
-    axes[0].set_ylabel("CPU (%)")
-    axes[0].tick_params(axis="x", rotation=20)
-    add_value_labels(axes[0], cpu_bars)
+    sync_bars = axis.bar(
+        [x - width / 2 for x in positions],
+        sync_values,
+        width=width,
+        label="Sync (QD=1)",
+        color=SYNC_COLOR,
+    )
+    async_bars = axis.bar(
+        [x + width / 2 for x in positions],
+        async_values,
+        width=width,
+        label="Async io_uring (QD=32)",
+        color=ASYNC_COLOR,
+    )
 
-    iowait_bars = axes[1].bar(labels, iowait_values, color="#54A24B")
-    axes[1].set_title("System iowait")
-    axes[1].set_ylabel("iowait (%)")
-    axes[1].tick_params(axis="x", rotation=20)
-    add_value_labels(axes[1], iowait_bars)
+    axis.set_title("Random Processing Power (4K IOPS)")
+    axis.set_ylabel("IOPS")
+    axis.set_xticks(positions)
+    axis.set_xticklabels(labels)
+    axis.legend()
+    add_value_labels(axis, sync_bars, decimals=0)
+    add_value_labels(axis, async_bars, decimals=0)
 
-    save_plot(figure, "05_cpu_iowait.png")
 
-
-def plot_random_read_comparison(
-    rand_read_async, seq_to_rand, rand_read_async_run, seq_to_rand_run
-):
-    labels = ["Rand Read", "Seq->Rand Read"]
-    iops = [
-        rand_read_async["iops"],
-        seq_to_rand["iops"],
-    ]
-    p95 = [
-        rand_read_async_run["fio"]["latency_usec"]["p95"],
-        seq_to_rand_run["fio"]["latency_usec"]["p95"],
-    ]
-    p99 = [
-        rand_read_async_run["fio"]["latency_usec"]["p99"],
-        seq_to_rand_run["fio"]["latency_usec"]["p99"],
-    ]
-    util = [
-        rand_read_async["mean_util_percent"],
-        seq_to_rand["mean_util_percent"],
+def draw_processing_reality(axis, summary):
+    labels = ["Async Seq Read\n128K", "Async Rand Read\n4K"]
+    values = [
+        summary["seq_read_async"]["iops"],
+        summary["rand_read_async"]["iops"],
     ]
 
-    figure, axes = plt.subplots(1, 4, figsize=(16, 4))
+    bars = axis.bar(labels, values, color=[SEQ_COLOR, RAND_COLOR])
+    axis.set_title("The Processing Reality (IOPS)")
+    axis.set_ylabel("IOPS")
+    add_value_labels(axis, bars, decimals=0)
 
-    iops_bars = axes[0].bar(labels, iops, color="#4C78A8")
-    axes[0].set_title("IOPS")
-    add_value_labels(axes[0], iops_bars, decimals=0)
 
-    p95_bars = axes[1].bar(labels, p95, color="#F58518")
-    axes[1].set_title("p95 Latency")
-    axes[1].set_ylabel("usec")
-    add_value_labels(axes[1], p95_bars)
+def draw_latency_distribution(axis, runs):
+    workloads = async_workloads()
+    labels = [label for _, label in workloads]
+    mean_values = [runs[name]["fio"]["latency_usec"]["mean"] for name, _ in workloads]
+    p95_values = [runs[name]["fio"]["latency_usec"]["p95"] for name, _ in workloads]
+    p99_values = [runs[name]["fio"]["latency_usec"]["p99"] for name, _ in workloads]
 
-    p99_bars = axes[2].bar(labels, p99, color="#E45756")
-    axes[2].set_title("p99 Latency")
-    axes[2].set_ylabel("usec")
-    add_value_labels(axes[2], p99_bars)
+    positions = list(range(len(labels)))
+    width = 0.24
 
-    util_bars = axes[3].bar(labels, util, color="#54A24B")
-    axes[3].set_title("Mean %util")
-    add_value_labels(axes[3], util_bars)
+    mean_bars = axis.bar(
+        [x - width for x in positions],
+        mean_values,
+        width=width,
+        label="Mean",
+        color=MEAN_COLOR,
+    )
+    p95_bars = axis.bar(
+        positions,
+        p95_values,
+        width=width,
+        label="P95",
+        color=P95_COLOR,
+    )
+    p99_bars = axis.bar(
+        [x + width for x in positions],
+        p99_values,
+        width=width,
+        label="P99",
+        color=P99_COLOR,
+    )
 
-    save_plot(figure, "06_rand_read_vs_seq_to_rand.png")
+    axis.set_title("Latency Distribution (Async Workloads, us, Log Scale)")
+    axis.set_ylabel("Latency (us)")
+    axis.set_yscale("log")
+    axis.set_xticks(positions)
+    axis.set_xticklabels(labels, rotation=15)
+    axis.legend()
+    add_value_labels(axis, mean_bars)
+    add_value_labels(axis, p95_bars)
+    add_value_labels(axis, p99_bars)
+
+
+def draw_system_overhead(axis, summary):
+    workloads = async_workloads()
+    labels = [label for _, label in workloads]
+    cpu_values = [summary[name]["fio_cpu_total_percent"] for name, _ in workloads]
+    util_values = [effective_device_util(summary[name]) for name, _ in workloads]
+    positions = list(range(len(labels)))
+
+    bars = axis.bar(
+        positions,
+        cpu_values,
+        width=0.55,
+        color=CPU_COLOR,
+        alpha=0.8,
+        label="fio CPU Usage",
+    )
+    axis.set_title("Resource Overhead (CPU vs NVMe Utilization)")
+    axis.set_ylabel("fio CPU Usage (%)", color=CPU_COLOR)
+    axis.set_xticks(positions)
+    axis.set_xticklabels(labels, rotation=15)
+    axis.tick_params(axis="y", labelcolor=CPU_COLOR)
+
+    util_axis = axis.twinx()
+    util_axis.plot(
+        positions,
+        util_values,
+        color=UTIL_COLOR,
+        marker="o",
+        linewidth=2,
+        label="NVMe Utilization",
+    )
+    util_axis.set_ylabel("NVMe Device Utilization (%)", color=UTIL_COLOR)
+    util_axis.tick_params(axis="y", labelcolor=UTIL_COLOR)
+
+    add_value_labels(axis, bars)
+    add_point_labels(util_axis, positions, util_values)
+
+    handles_1, labels_1 = axis.get_legend_handles_labels()
+    handles_2, labels_2 = util_axis.get_legend_handles_labels()
+    axis.legend(handles_1 + handles_2, labels_1 + labels_2, loc="upper left")
+
+
+def draw_mixed_state_penalty(axis, summary):
+    labels = ["Clean Rand Read", "After Seq Write"]
+    iops_values = [
+        summary["rand_read_async"]["iops"],
+        summary["seq_to_rand"]["iops"],
+    ]
+    latency_values = [
+        summary["rand_read_async"]["latency_p99_usec"],
+        summary["seq_to_rand"]["latency_p99_usec"],
+    ]
+    positions = [0, 1]
+
+    bars = axis.bar(
+        positions,
+        iops_values,
+        width=0.55,
+        color=RAND_COLOR,
+        alpha=0.85,
+        label="IOPS",
+    )
+    axis.set_title("SSD State Penalty (IOPS vs P99 Latency)")
+    axis.set_ylabel("IOPS", color=RAND_COLOR)
+    axis.set_xticks(positions)
+    axis.set_xticklabels(labels)
+    axis.tick_params(axis="y", labelcolor=RAND_COLOR)
+
+    latency_axis = axis.twinx()
+    latency_axis.plot(
+        positions,
+        latency_values,
+        color=STATE_COLOR,
+        marker="o",
+        linewidth=2,
+        label="P99 Latency",
+    )
+    latency_axis.set_ylabel("P99 Latency (us)", color=STATE_COLOR)
+    latency_axis.tick_params(axis="y", labelcolor=STATE_COLOR)
+
+    add_value_labels(axis, bars, decimals=0)
+    add_point_labels(latency_axis, positions, latency_values)
+
+    handles_1, labels_1 = axis.get_legend_handles_labels()
+    handles_2, labels_2 = latency_axis.get_legend_handles_labels()
+    axis.legend(handles_1 + handles_2, labels_1 + labels_2, loc="upper right")
+
+
+def plot_box_specs(summary):
+    figure, axes = plt.subplots(1, 2, figsize=(16, 5.5))
+    figure.suptitle("Box Specs", fontsize=16, y=1.02)
+    draw_seq_bandwidth(axes[0], summary)
+    draw_random_iops(axes[1], summary)
+    save_plot(figure, "01_box_specs.png")
+
+
+def plot_real_world_physics(summary):
+    figure, axes = plt.subplots(1, 2, figsize=(14, 5.5))
+    figure.suptitle("Real-World Physics", fontsize=16, y=1.02)
+    draw_throughput_illusion(axes[0], summary)
+    draw_processing_reality(axes[1], summary)
+    save_plot(figure, "02_real_world_physics.png")
+
+
+def plot_resource_overhead(summary):
+    figure, axis = plt.subplots(figsize=(11, 5.5))
+    figure.suptitle("Resource Overhead", fontsize=16, y=1.02)
+    draw_system_overhead(axis, summary)
+    save_plot(figure, "03_resource_overhead.png")
+
+
+def plot_latency_distribution_standalone(runs):
+    figure, axis = plt.subplots(figsize=(12, 5.5))
+    figure.suptitle("Latency Distribution", fontsize=16, y=1.02)
+    draw_latency_distribution(axis, runs)
+    save_plot(figure, "04_latency_distribution.png")
+
+
+def plot_state_penalty(summary):
+    figure, axis = plt.subplots(figsize=(9, 5.5))
+    figure.suptitle("SSD State Penalty", fontsize=16, y=1.02)
+    draw_mixed_state_penalty(axis, summary)
+    save_plot(figure, "05_state_penalty.png")
 
 
 if __name__ == "__main__":
