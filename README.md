@@ -187,10 +187,14 @@ Also, a new directory in the repo is created for this section of the assignment:
 
 ## 5: Running The Experiment
 
-Using `iostat` and `fio`, data will be collected from the followings tests for a total of 5 tests:
-- sync/async sequential read / read with a 2G file
-- sync/async random write / read with a 2G file
-- sequential write, then random read with 2G file and 4K read 
+Using `iostat` and `fio`, data is collected for 9 measured workloads:
+- sequential write: sync and async
+- sequential read: sync and async
+- random write: sync and async
+- random read: sync and async
+- random read immediately after a heavy sequential write (`seq_to_rand`)
+
+There is also one extra unrecorded prep step, `seq_prep`, which sequentially writes the test file immediately before the final `seq_to_rand` benchmark so the SSD is measured in a "recently written" state.
 
 Because the configuration for each test requires tedious setup, an automated bash script is created in [fio_benchmarks/benchmark.sh](./fio_benchmarks/benchmark.sh). 
 
@@ -261,7 +265,7 @@ To refine the dataset from the messy log and json, I considered the following qu
 - **mean_read/write_await_ms**: device side waiting, it should move with `fio`'s latency data
 
 Then, to extract this data and clean it up into a clean JSON file, [process_results.py](./fio_benchmarks/process_results.py) is created where
-1.  `main()` hardcodes the five benchmark names and builds one result object per test.
+1.  `main()` hardcodes the 9 measured benchmark names and builds one result object per workload.
 2. `build_run()` reads one `fio` JSON and extracts config, throughput, IOPS, latency, and CPU.
 3. `parse_iostat()` reads the matching iostat log, keeps only iowait and the nvme0n1 row, skips the first sample, and summarizes utilization, queue depth, bandwidth, and await.
 	- note: we only use the nvme0n1 row because it is the only useful row in iostat
@@ -281,33 +285,33 @@ and the final data exists in [fio_benchmarks/results/processed/consolidated.json
 
 ## 7: Plotting
 
-There are 6 total plots:
-1. Throughput
-2. Random IOPS (read/write)
-3. Random latency (read/write)
-4. Device pressure in the form of %util
-5. CPU and iowait
-6. Rand read vs Seq then rand read
+The plotting code now produces 5 output figures, but they contain 7 distinct comparisons:
+1. `01_box_specs.png`
+2. `02_real_world_physics.png`
+3. `03_resource_overhead.png`
+4. `04_latency_distribution.png`
+5. `05_state_penalty.png`
 
 To do this, [plot_results.py](./fio_benchmarks/plot_results.py) does the following:
 
-  1. load processed benchmark data
-  2. select the exact metrics needed for each predefined chart
-  3. render and save the six figures 
-  
-  - `main()`, it pulls out the five fixed workloads by name
-  - It creates the plots output directory and sets `Matplotlib` up for file-based rendering.
-  - It then calls six fixed plotting functions, each responsible for one report figure.
-  - `plot_throughput()` makes a bar chart of throughput for all five workloads.
-  - `plot_random_iops()` makes a bar chart of IOPS for the random-style workloads only.
-  - `plot_random_latency()` makes a grouped bar chart of p50, p95, and p99 latency for the random-style workloads.
-  - `plot_device_pressure()` makes a two-panel figure for mean device utilization and mean queue depth.
-  - `plot_cpu_and_iowait()` makes a two-panel figure for fio CPU usage and system iowait.
-  - `plot_random_read_comparison()` makes a focused comparison between rand_read_async and seq_to_rand using IOPS, p95,
-    p99, and %util.
-  - `find_by_name()` is just a helper to fetch one workload from the loaded JSON.
-  - `save_plot()` saves each figure as a PNG in fio_benchmarks/results/plots.
-  - `add_value_labels()` writes the numeric value above each bar so the charts are easier to read.
+1. load processed benchmark data from `consolidated.json`
+2. build `summary` and `runs` lookup maps by workload name
+3. render the fixed report figures from those lookup maps
+
+- `main()` sets up the output directory, configures Matplotlib for file-based rendering, and calls the five top-level plotting functions.
+- `plot_box_specs()` generates a two-panel figure:
+  - sequential bandwidth limit: sync vs async for 128K reads and writes
+  - random processing power: sync vs async for 4K random reads and writes
+- `plot_real_world_physics()` generates a two-panel figure:
+  - throughput illusion: async sequential read vs async random read in MiB/s
+  - processing reality: async sequential read vs async random read in IOPS
+- `plot_resource_overhead()` generates a standalone dual-axis chart comparing fio CPU usage against NVMe device utilization across all async workloads.
+- `plot_latency_distribution_standalone()` generates a standalone log-scale latency chart showing mean, p95, and p99 latency for all async workloads.
+- `plot_state_penalty()` generates a standalone dual-axis chart comparing clean random reads against random reads immediately after a heavy sequential write.
+- `draw_*()` helpers render each subplot into an existing axis so related charts can be grouped side by side without duplicating data-selection logic.
+- `effective_device_util()` falls back to fio's `disk_util` section when a short run does not capture enough `iostat` interval samples.
+- `save_plot()` writes each figure into `fio_benchmarks/results/plots`.
+- `add_value_labels()` and `add_point_labels()` annotate bars and line points so the numeric values are visible in the exported report.
 
   This can then be run with 
   ```bash
@@ -316,41 +320,32 @@ To do this, [plot_results.py](./fio_benchmarks/plot_results.py) does the followi
 
 ### 7.1: Analysis of Results
 
-1: Throughput
-![Throughput](./fio_benchmarks/results/plots/01_throughput.png)
-- **Sequential reads have the highest throughput** because modern NVMe SSDs are optimized for large, contiguous blocks of data. 
-	- Sequential reads use a large block size (bs=128k) with an async engine, allowing the SSD controller to pre-fetch data into internal cache
-- Because NAND flash cannot overwrite data in place and must erase blocks before writing, **write throughput is significantly lower** 
-- **random read/writes have lower throughput** because random tests use bs=4k, and thus due to the overhead of small blocks, the controller must constantly hammer the FTL for lookups, which throttles raw bandwidth
+1: Box Specs
+![box_specs](./fio_benchmarks/results/plots/01_box_specs.png)
+- The left panel shows the PCIe bandwidth story. Async sequential read reaches about `2752.7 MiB/s`, while sync sequential read only reaches about `266.9 MiB/s`, so a single blocking thread cannot feed the drive fast enough to hit its read bandwidth ceiling.
+- The right panel shows the controller parallelism story. Async random read reaches about `205,506 IOPS`, while sync random read only reaches about `6,255 IOPS`, which shows that queueing many independent requests is what unlocks NVMe random-read performance.
+- The sequential write side is much flatter than the sequential read side, which is a reminder that flash write behavior is constrained by erase/program work inside the SSD, not just host-side submission rate.
 
-2: Random IOPS 
-![random_iops](./fio_benchmarks/results/plots/02_random_iops.png)
-- **reads have higher IOPS** because they use io_uring with a deep queue (32) which allows the OS to flood the SSD with 32 parallel IO requests at a time, saturating the drive channels
-- **writes have lower IOPS** because random 4k writes force the SSD to constantly perform read-modify-write cycles across large NAND blocks
+2: Real-World Physics
+![real_world_physics](./fio_benchmarks/results/plots/02_real_world_physics.png)
+- The left panel shows the throughput illusion clearly: async sequential read delivers about `2752.7 MiB/s`, but async random read drops to about `802.8 MiB/s`. The access pattern changed, so the drive stopped streaming and started servicing scattered 4K requests.
+- The right panel shows the inverse perspective. Even though random read moves much less total data per second, it does far more work in operation count: about `205k IOPS` for random read versus about `22k IOPS` for sequential read.
+- Together, these two panels show the bottleneck shift: sequential read is mostly limited by transport bandwidth, while random read is mostly limited by the SSD controller's request processing capacity.
 
-3: Random Latency
-![random_latency](./fio_benchmarks/results/plots/03_random_latency.png)
-- **random read has the lowest latency** at all latencies because a 4k read is a voltage check on a NAND cell
-- **random write has the highest latency** because a 4k write requires finding free pages, updating the FTL lookup, and occasional garbage collection
+3: Resource Overhead
+![resource_overhead](./fio_benchmarks/results/plots/03_resource_overhead.png)
+- High-IOPS async workloads are not free on the host. `rand_read_async` drives the device to roughly `62%` utilization while consuming about `87%` total fio CPU, and `rand_write_async` is similarly expensive.
+- `seq_read_async` reaches the highest bandwidth but with lower reported device utilization than the random tests, reinforcing that bandwidth saturation and controller saturation are different things.
+- For short runs such as `seq_write_async`, the plotting code falls back to fio's `disk_util` data because `iostat` did not capture enough interval samples.
 
-4: Device Pressure
-![device_pressure](./fio_benchmarks/results/plots/04_device_pressure.png)
-- **Async workloads have highest average queue depths** because the async tests push 32 requests out simultaneously, which iostat records as a deep queue
-	- because of the io depth being 32, the pipeline was always saturated, leading to a high utilization
-- **Sequential write's queue depth stays near 1** because of io_engine=sync, meaning the CPU sends one block at a time, blocking until it's finished writing
-- **Sequential write shows high disk utilization** despite its shallow queue depth as it's constantly writing
-- **Sequential read** is deceptive because iostat sampled at 1-second intervals, and the sequential read finished in less than second; the idle time was not fully captured. Thus its utilization is modest, only at 56%
-	- to fix this, next time it would be better to increase sampling rate of iostat and use a larger file size 
+4: Latency Distribution
+![latency_distribution](./fio_benchmarks/results/plots/04_latency_distribution.png)
+- The log-scale view is important because averages alone hide tail behavior. `rand_read_async` has a mean latency of about `151.7 us`, but its p99 is still about `391.2 us`.
+- `seq_write_async` is the clearest tail-latency warning in this dataset: it has an average latency of about `8015 us`, with p95 and p99 even higher, showing that deeper queues can create substantial internal waiting even when throughput is acceptable.
+- This plot makes the main systems point: pushing queue depth to maximize throughput or IOPS usually worsens worst-case completion times.
 
-5: CPU and iowait
-![cpu_iowait](./fio_benchmarks/results/plots/05_cpu_iowait.png)
-- **Async random workloads consume a large amount of host CPU** because driving 100k IOPS requires the CPU to process thousands of I/O submissions/completions every second
-	- context switching and processing drains CPU cycles
-	- also, because direct=1, we bypass the kernel cache and force the hardware subsystem and io_uring to process it directly, leading to higher CPU usage
-- **Sequential write shows low CPU usage but large iowait** because with a synchronous engine, the thread must wait for the write task to finish
-
-6: Random Read vs Seq->Rand Read
-![read_seqread](./fio_benchmarks/results/plots/06_rand_read_vs_seq_to_rand.png)
-The SSD's internal block mapping should benefit from sequential write then random read because of the data being laid down in sequential blocks from the read. However, this did not happen. 
-
-It may have been because writing the file sequentially left the SSD controller managing dirty blocks or updating/organizing FTL pages. Because the random read was initiated immediately after the write with no sleep period, the controller may have been busy.  In a future test, it would be better to sleep before initiating the read to get expected behavior. 
+5: SSD State Penalty
+![state_penalty](./fio_benchmarks/results/plots/05_state_penalty.png)
+- Clean async random read reaches about `205,506 IOPS`, but random read immediately after a heavy sequential write drops to about `133,393 IOPS`.
+- At the same time, p99 latency rises from about `391 us` to about `412 us`, which suggests the SSD is still doing background work after the write-heavy phase.
+- This is the "drives have state" lesson: benchmark results are not only determined by the current request pattern, but also by what the device was doing immediately beforehand.
