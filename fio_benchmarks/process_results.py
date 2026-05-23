@@ -23,17 +23,29 @@ PERCENTILES = {
 
 
 def main():
-    seq_write_sync = build_run("seq_write_sync", "Sequential Write")
-    seq_read_async = build_run("seq_read_async", "Sequential Read")
-    rand_write_async = build_run("rand_write_async", "Random Write")
-    rand_read_async = build_run("rand_read_async", "Random Read")
+    seq_write_sync = build_run("seq_write_sync", "Sequential Write (Sync)")
+    seq_write_async = build_run("seq_write_async", "Sequential Write (Async)")
+
+    seq_read_sync = build_run("seq_read_sync", "Sequential Read (Sync)")
+    seq_read_async = build_run("seq_read_async", "Sequential Read (Async)")
+
+    rand_write_sync = build_run("rand_write_sync", "Random Write (Sync)")
+    rand_write_async = build_run("rand_write_async", "Random Write (Async)")
+
+    rand_read_sync = build_run("rand_read_sync", "Random Read (Sync)")
+    rand_read_async = build_run("rand_read_async", "Random Read (Async)")
+
     seq_to_rand = build_run("seq_to_rand", "Random Read After Sequential Write")
 
     runs = [
         seq_write_sync,
+        seq_write_async,
+        seq_read_sync,
         seq_read_async,
         rand_write_async,
+        rand_write_sync,
         rand_read_async,
+        rand_read_sync,
         seq_to_rand,
     ]
 
@@ -42,8 +54,12 @@ def main():
         "source_directory": str(RAW_DIR),
         "summary": [
             summary(seq_write_sync),
+            summary(seq_write_async),
+            summary(seq_read_sync),
             summary(seq_read_async),
+            summary(rand_write_sync),
             summary(rand_write_async),
+            summary(rand_read_sync),
             summary(rand_read_async),
             summary(seq_to_rand),
         ],
