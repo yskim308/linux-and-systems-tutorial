@@ -40,10 +40,12 @@ def main():
     PLOTS_DIR.mkdir(parents=True, exist_ok=True)
     plt.style.use("ggplot")
 
-    plot_box_specs(summary)
-    plot_real_world_physics(summary)
+    plot_seq_bandwidth(summary)
+    plot_random_iops(summary)
+    plot_throughput_illusion(summary)
+    plot_processing_reality(summary)
     plot_resource_overhead(summary)
-    plot_latency_distribution_standalone(runs)
+    plot_latency_distribution(runs)
     plot_state_penalty(summary)
 
 
@@ -136,7 +138,6 @@ def draw_seq_bandwidth(axis, summary):
         color=ASYNC_COLOR,
     )
 
-    axis.set_title("Sequential Bandwidth Limit (128K, MiB/s)")
     axis.set_ylabel("MiB/s")
     axis.set_xticks(positions)
     axis.set_xticklabels(labels)
@@ -153,7 +154,6 @@ def draw_throughput_illusion(axis, summary):
     ]
 
     bars = axis.bar(labels, values, color=[SEQ_COLOR, RAND_COLOR])
-    axis.set_title("The Throughput Illusion (MiB/s)")
     axis.set_ylabel("MiB/s")
     add_value_labels(axis, bars)
 
@@ -187,7 +187,6 @@ def draw_random_iops(axis, summary):
         color=ASYNC_COLOR,
     )
 
-    axis.set_title("Random Processing Power (4K IOPS)")
     axis.set_ylabel("IOPS")
     axis.set_xticks(positions)
     axis.set_xticklabels(labels)
@@ -204,7 +203,6 @@ def draw_processing_reality(axis, summary):
     ]
 
     bars = axis.bar(labels, values, color=[SEQ_COLOR, RAND_COLOR])
-    axis.set_title("The Processing Reality (IOPS)")
     axis.set_ylabel("IOPS")
     add_value_labels(axis, bars, decimals=0)
 
@@ -241,7 +239,6 @@ def draw_latency_distribution(axis, runs):
         color=P99_COLOR,
     )
 
-    axis.set_title("Latency Distribution (Async Workloads, us, Log Scale)")
     axis.set_ylabel("Latency (us)")
     axis.set_yscale("log")
     axis.set_xticks(positions)
@@ -267,7 +264,6 @@ def draw_system_overhead(axis, summary):
         alpha=0.8,
         label="fio CPU Usage",
     )
-    axis.set_title("Resource Overhead (CPU vs NVMe Utilization)")
     axis.set_ylabel("fio CPU Usage (%)", color=CPU_COLOR)
     axis.set_xticks(positions)
     axis.set_xticklabels(labels, rotation=15)
@@ -313,7 +309,6 @@ def draw_mixed_state_penalty(axis, summary):
         alpha=0.85,
         label="IOPS",
     )
-    axis.set_title("SSD State Penalty (IOPS vs P99 Latency)")
     axis.set_ylabel("IOPS", color=RAND_COLOR)
     axis.set_xticks(positions)
     axis.set_xticklabels(labels)
@@ -339,41 +334,46 @@ def draw_mixed_state_penalty(axis, summary):
     axis.legend(handles_1 + handles_2, labels_1 + labels_2, loc="upper right")
 
 
-def plot_box_specs(summary):
-    figure, axes = plt.subplots(1, 2, figsize=(16, 5.5))
-    figure.suptitle("Box Specs", fontsize=16, y=1.02)
-    draw_seq_bandwidth(axes[0], summary)
-    draw_random_iops(axes[1], summary)
-    save_plot(figure, "01_box_specs.png")
+def plot_seq_bandwidth(summary):
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    draw_seq_bandwidth(axis, summary)
+    save_plot(figure, "01_seq_bandwidth.png")
 
 
-def plot_real_world_physics(summary):
-    figure, axes = plt.subplots(1, 2, figsize=(14, 5.5))
-    figure.suptitle("Real-World Physics", fontsize=16, y=1.02)
-    draw_throughput_illusion(axes[0], summary)
-    draw_processing_reality(axes[1], summary)
-    save_plot(figure, "02_real_world_physics.png")
+def plot_random_iops(summary):
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    draw_random_iops(axis, summary)
+    save_plot(figure, "02_random_iops.png")
+
+
+def plot_throughput_illusion(summary):
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    draw_throughput_illusion(axis, summary)
+    save_plot(figure, "03_throughput_illusion.png")
+
+
+def plot_processing_reality(summary):
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    draw_processing_reality(axis, summary)
+    save_plot(figure, "04_processing_reality.png")
 
 
 def plot_resource_overhead(summary):
     figure, axis = plt.subplots(figsize=(11, 5.5))
-    figure.suptitle("Resource Overhead", fontsize=16, y=1.02)
     draw_system_overhead(axis, summary)
-    save_plot(figure, "03_resource_overhead.png")
+    save_plot(figure, "05_resource_overhead.png")
 
 
-def plot_latency_distribution_standalone(runs):
+def plot_latency_distribution(runs):
     figure, axis = plt.subplots(figsize=(12, 5.5))
-    figure.suptitle("Latency Distribution", fontsize=16, y=1.02)
     draw_latency_distribution(axis, runs)
-    save_plot(figure, "04_latency_distribution.png")
+    save_plot(figure, "06_latency_distribution.png")
 
 
 def plot_state_penalty(summary):
     figure, axis = plt.subplots(figsize=(9, 5.5))
-    figure.suptitle("SSD State Penalty", fontsize=16, y=1.02)
     draw_mixed_state_penalty(axis, summary)
-    save_plot(figure, "05_state_penalty.png")
+    save_plot(figure, "07_state_penalty.png")
 
 
 if __name__ == "__main__":
