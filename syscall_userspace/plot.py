@@ -4,6 +4,9 @@ import pandas as pd
 df_reg = pd.read_csv("regular.csv")
 df_heavy = pd.read_csv("heavy.csv")
 
+print(f"Loaded Regular: {len(df_reg)} rows.")
+print(f"Loaded Heavy: {len(df_heavy)} rows.")
+
 for df in [df_reg, df_heavy]:
     df["time"] = pd.to_datetime(df["time"])
     df["elapsed"] = (df["time"] - df["time"].iloc[0]).dt.total_seconds()
@@ -17,6 +20,7 @@ plt.plot(
     color="blue",
     linewidth=2,
 )
+
 plt.plot(
     df_heavy["elapsed"],
     df_heavy["utilization"],
@@ -25,11 +29,10 @@ plt.plot(
     linewidth=2,
 )
 
-plt.title("Memory Utilization: Regular vs. Heavy JavaScript")
 plt.xlabel("Time (seconds)")
 plt.ylabel("Memory Utilization (Units)")
 plt.legend()
 plt.grid(True, linestyle="--", alpha=0.7)
 
-plt.savefig("memory_comparison.png")
-print("Plot saved as memory_comparison.png")
+plt.savefig("memory_comparison_test.png")
+print("Success! Plot saved as memory_comparison_test.png")
