@@ -1,602 +1,1280 @@
 {
-    "generated_at_utc": "2026-05-23T03:37:05.375972+00:00",
-    "source_directory": "/home/kyle/linux-and-systems-tutorial/fio_benchmarks/results/raw",
-    "summary": [
-        {
-            "name": "seq_write_sync",
-            "label": "Sequential Write (Sync)",
-            "operation": "write",
-            "block_size_bytes": 131072,
-            "iodepth": 1,
-            "throughput_mib_per_sec": 412.803,
-            "iops": 3302.427,
-            "latency_mean_usec": 298.521,
-            "latency_p95_usec": 602.112,
-            "latency_p99_usec": 5734.4,
-            "fio_cpu_total_percent": 11.587,
-            "mean_iowait_percent": 10.508,
-            "mean_util_percent": 88.867,
-            "mean_queue_depth": 0.91
-        },
-        {
-            "name": "seq_write_async",
-            "label": "Sequential Write (Async)",
-            "operation": "write",
-            "block_size_bytes": 131072,
-            "iodepth": 32,
-            "throughput_mib_per_sec": 497.45,
-            "iops": 3979.597,
-            "latency_mean_usec": 8015.073,
-            "latency_p95_usec": 14745.6,
-            "latency_p99_usec": 16318.464,
-            "fio_cpu_total_percent": 10.301,
-            "mean_iowait_percent": 0.0,
-            "mean_util_percent": 0.0,
-            "mean_queue_depth": 0.0
-        },
-        {
-            "name": "seq_read_sync",
-            "label": "Sequential Read (Sync)",
-            "operation": "read",
-            "block_size_bytes": 131072,
-            "iodepth": 1,
-            "throughput_mib_per_sec": 266.875,
-            "iops": 2135.001,
-            "latency_mean_usec": 466.57,
-            "latency_p95_usec": 880.64,
-            "latency_p99_usec": 1105.92,
-            "fio_cpu_total_percent": 6.933,
-            "mean_iowait_percent": 0.0,
-            "mean_util_percent": 0.0,
-            "mean_queue_depth": 0.0
-        },
-        {
-            "name": "seq_read_async",
-            "label": "Sequential Read (Async)",
-            "operation": "read",
-            "block_size_bytes": 131072,
-            "iodepth": 32,
-            "throughput_mib_per_sec": 2752.688,
-            "iops": 22021.505,
-            "latency_mean_usec": 1435.663,
-            "latency_p95_usec": 1728.512,
-            "latency_p99_usec": 1990.656,
-            "fio_cpu_total_percent": 42.012,
-            "mean_iowait_percent": 0.065,
-            "mean_util_percent": 43.05,
-            "mean_queue_depth": 17.38
-        },
-        {
-            "name": "rand_write_sync",
-            "label": "Random Write (Sync)",
-            "operation": "write",
-            "block_size_bytes": 4096,
-            "iodepth": 1,
-            "throughput_mib_per_sec": 162.141,
-            "iops": 41508.036,
-            "latency_mean_usec": 22.922,
-            "latency_p95_usec": 24.96,
-            "latency_p99_usec": 32.384,
-            "fio_cpu_total_percent": 26.097,
-            "mean_iowait_percent": 0.0,
-            "mean_util_percent": 0.0,
-            "mean_queue_depth": 0.0
-        },
-        {
-            "name": "rand_write_async",
-            "label": "Random Write (Async)",
-            "operation": "write",
-            "block_size_bytes": 4096,
-            "iodepth": 32,
-            "throughput_mib_per_sec": 538.551,
-            "iops": 137868.939,
-            "latency_mean_usec": 226.589,
-            "latency_p95_usec": 305.152,
-            "latency_p99_usec": 1011.712,
-            "fio_cpu_total_percent": 80.234,
-            "mean_iowait_percent": 0.014,
-            "mean_util_percent": 79.944,
-            "mean_queue_depth": 13.388
-        },
-        {
-            "name": "rand_read_sync",
-            "label": "Random Read (Sync)",
-            "operation": "read",
-            "block_size_bytes": 4096,
-            "iodepth": 1,
-            "throughput_mib_per_sec": 24.434,
-            "iops": 6255.151,
-            "latency_mean_usec": 158.367,
-            "latency_p95_usec": 419.84,
-            "latency_p99_usec": 561.152,
-            "fio_cpu_total_percent": 5.432,
-            "mean_iowait_percent": 0.0,
-            "mean_util_percent": 0.0,
-            "mean_queue_depth": 0.0
-        },
-        {
-            "name": "rand_read_async",
-            "label": "Random Read (Async)",
-            "operation": "read",
-            "block_size_bytes": 4096,
-            "iodepth": 32,
-            "throughput_mib_per_sec": 802.759,
-            "iops": 205506.428,
-            "latency_mean_usec": 151.725,
-            "latency_p95_usec": 185.344,
-            "latency_p99_usec": 391.168,
-            "fio_cpu_total_percent": 87.047,
-            "mean_iowait_percent": 0.0,
-            "mean_util_percent": 62.35,
-            "mean_queue_depth": 20.075
-        },
-        {
-            "name": "seq_to_rand",
-            "label": "Random Read After Sequential Write",
-            "operation": "read",
-            "block_size_bytes": 4096,
-            "iodepth": 32,
-            "throughput_mib_per_sec": 521.067,
-            "iops": 133393.039,
-            "latency_mean_usec": 236.418,
-            "latency_p95_usec": 342.016,
-            "latency_p99_usec": 411.648,
-            "fio_cpu_total_percent": 56.336,
-            "mean_iowait_percent": 0.088,
-            "mean_util_percent": 56.01,
-            "mean_queue_depth": 25.476
+  "generated_at_utc": "2026-05-25T09:50:53.143506+00:00",
+  "source_directory": "/Users/young/Code/sideProjects/linux-and-systems-tutorial/fio_benchmarks/results/raw",
+  "runs": [
+    {
+      "test_name": "rand_read_sync",
+      "operation": "read",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 24.908,
+        "iops": 6376.415,
+        "latency_usec": {
+          "p50": 114.176,
+          "p95": 403.456,
+          "p99": 536.576,
+          "p99_9": 733.184
         }
-    ],
-    "runs": [
-        {
-            "name": "seq_write_sync",
-            "label": "Sequential Write (Sync)",
-            "operation": "write",
-            "config": {
-                "rw": "write",
-                "ioengine": "sync",
-                "iodepth": 1,
-                "direct": true,
-                "block_size_bytes": 131072,
-                "size_bytes": 5368709120,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 12.402,
-                "bytes_transferred": 5368709120,
-                "throughput_mib_per_sec": 412.803,
-                "iops": 3302.427,
-                "latency_usec": {
-                    "mean": 298.521,
-                    "p50": 114.176,
-                    "p95": 602.112,
-                    "p99": 5734.4,
-                    "p99_9": 10944.512
-                },
-                "cpu_percent": {
-                    "user": 1.887,
-                    "system": 9.7,
-                    "total": 11.587
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 12,
-                "cpu": {
-                    "mean_iowait_percent": 10.508,
-                    "max_iowait_percent": 11.13
-                },
-                "device_stats": {
-                    "mean_util_percent": 88.867,
-                    "max_util_percent": 94.5,
-                    "mean_queue_depth": 0.91,
-                    "max_queue_depth": 1.06,
-                    "mean_read_await_ms": 0.0,
-                    "mean_write_await_ms": 0.284,
-                    "mean_read_mib_per_sec": 0.0,
-                    "mean_write_mib_per_sec": 406.31
-                }
-            }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.814,
+          "mean_system": 0.93,
+          "mean_total": 1.744
         },
-        {
-            "name": "seq_write_async",
-            "label": "Sequential Write (Async)",
-            "operation": "write",
-            "config": {
-                "rw": "write",
-                "ioengine": "io_uring",
-                "iodepth": 32,
-                "direct": true,
-                "block_size_bytes": 131072,
-                "size_bytes": 2147483648,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 4.116,
-                "bytes_transferred": 2147483648,
-                "throughput_mib_per_sec": 497.45,
-                "iops": 3979.597,
-                "latency_usec": {
-                    "mean": 8015.073,
-                    "p50": 7831.552,
-                    "p95": 14745.6,
-                    "p99": 16318.464,
-                    "p99_9": 19791.872
-                },
-                "cpu_percent": {
-                    "user": 2.187,
-                    "system": 8.115,
-                    "total": 10.301
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 0,
-                "cpu": {
-                    "mean_iowait_percent": 0.0,
-                    "max_iowait_percent": 0.0
-                },
-                "device_stats": {
-                    "mean_util_percent": 0.0,
-                    "max_util_percent": 0.0,
-                    "mean_queue_depth": 0.0,
-                    "max_queue_depth": 0.0,
-                    "mean_read_await_ms": 0.0,
-                    "mean_write_await_ms": 0.0,
-                    "mean_read_mib_per_sec": 0.0,
-                    "mean_write_mib_per_sec": 0.0
-                }
-            }
-        },
-        {
-            "name": "seq_read_sync",
-            "label": "Sequential Read (Sync)",
-            "operation": "read",
-            "config": {
-                "rw": "read",
-                "ioengine": "sync",
-                "iodepth": 1,
-                "direct": true,
-                "block_size_bytes": 131072,
-                "size_bytes": 2147483648,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 7.673,
-                "bytes_transferred": 2147483648,
-                "throughput_mib_per_sec": 266.875,
-                "iops": 2135.001,
-                "latency_usec": {
-                    "mean": 466.57,
-                    "p50": 415.744,
-                    "p95": 880.64,
-                    "p99": 1105.92,
-                    "p99_9": 1400.832
-                },
-                "cpu_percent": {
-                    "user": 1.017,
-                    "system": 5.917,
-                    "total": 6.933
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 0,
-                "cpu": {
-                    "mean_iowait_percent": 0.0,
-                    "max_iowait_percent": 0.0
-                },
-                "device_stats": {
-                    "mean_util_percent": 0.0,
-                    "max_util_percent": 0.0,
-                    "mean_queue_depth": 0.0,
-                    "max_queue_depth": 0.0,
-                    "mean_read_await_ms": 0.0,
-                    "mean_write_await_ms": 0.0,
-                    "mean_read_mib_per_sec": 0.0,
-                    "mean_write_mib_per_sec": 0.0
-                }
-            }
-        },
-        {
-            "name": "seq_read_async",
-            "label": "Sequential Read (Async)",
-            "operation": "read",
-            "config": {
-                "rw": "read",
-                "ioengine": "io_uring",
-                "iodepth": 32,
-                "direct": true,
-                "block_size_bytes": 131072,
-                "size_bytes": 5368709120,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 1.859,
-                "bytes_transferred": 5368709120,
-                "throughput_mib_per_sec": 2752.688,
-                "iops": 22021.505,
-                "latency_usec": {
-                    "mean": 1435.663,
-                    "p50": 1400.832,
-                    "p95": 1728.512,
-                    "p99": 1990.656,
-                    "p99_9": 2375.68
-                },
-                "cpu_percent": {
-                    "user": 3.389,
-                    "system": 38.623,
-                    "total": 42.012
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 2,
-                "cpu": {
-                    "mean_iowait_percent": 0.065,
-                    "max_iowait_percent": 0.13
-                },
-                "device_stats": {
-                    "mean_util_percent": 43.05,
-                    "max_util_percent": 78.0,
-                    "mean_queue_depth": 17.38,
-                    "max_queue_depth": 31.71,
-                    "mean_read_await_ms": 1.435,
-                    "mean_write_await_ms": 0.155,
-                    "mean_read_mib_per_sec": 1513.5,
-                    "mean_write_mib_per_sec": 0.154
-                }
-            }
-        },
-        {
-            "name": "rand_write_async",
-            "label": "Random Write (Async)",
-            "operation": "write",
-            "config": {
-                "rw": "randwrite",
-                "ioengine": "io_uring",
-                "iodepth": 32,
-                "direct": true,
-                "block_size_bytes": 4096,
-                "size_bytes": 5368709120,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 9.506,
-                "bytes_transferred": 5368709120,
-                "throughput_mib_per_sec": 538.551,
-                "iops": 137868.939,
-                "latency_usec": {
-                    "mean": 226.589,
-                    "p50": 171.008,
-                    "p95": 305.152,
-                    "p99": 1011.712,
-                    "p99_9": 8585.216
-                },
-                "cpu_percent": {
-                    "user": 20.734,
-                    "system": 59.499,
-                    "total": 80.234
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 9,
-                "cpu": {
-                    "mean_iowait_percent": 0.014,
-                    "max_iowait_percent": 0.13
-                },
-                "device_stats": {
-                    "mean_util_percent": 79.944,
-                    "max_util_percent": 86.8,
-                    "mean_queue_depth": 13.388,
-                    "max_queue_depth": 27.1,
-                    "mean_read_await_ms": 0.0,
-                    "mean_write_await_ms": 0.11,
-                    "mean_read_mib_per_sec": 0.0,
-                    "mean_write_mib_per_sec": 529.653
-                }
-            }
-        },
-        {
-            "name": "rand_write_sync",
-            "label": "Random Write (Sync)",
-            "operation": "write",
-            "config": {
-                "rw": "randwrite",
-                "ioengine": "sync",
-                "iodepth": 1,
-                "direct": true,
-                "block_size_bytes": 4096,
-                "size_bytes": 2147483648,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 12.63,
-                "bytes_transferred": 2147483648,
-                "throughput_mib_per_sec": 162.141,
-                "iops": 41508.036,
-                "latency_usec": {
-                    "mean": 22.922,
-                    "p50": 22.4,
-                    "p95": 24.96,
-                    "p99": 32.384,
-                    "p99_9": 73.216
-                },
-                "cpu_percent": {
-                    "user": 7.458,
-                    "system": 18.638,
-                    "total": 26.097
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 0,
-                "cpu": {
-                    "mean_iowait_percent": 0.0,
-                    "max_iowait_percent": 0.0
-                },
-                "device_stats": {
-                    "mean_util_percent": 0.0,
-                    "max_util_percent": 0.0,
-                    "mean_queue_depth": 0.0,
-                    "max_queue_depth": 0.0,
-                    "mean_read_await_ms": 0.0,
-                    "mean_write_await_ms": 0.0,
-                    "mean_read_mib_per_sec": 0.0,
-                    "mean_write_mib_per_sec": 0.0
-                }
-            }
-        },
-        {
-            "name": "rand_read_async",
-            "label": "Random Read (Async)",
-            "operation": "read",
-            "config": {
-                "rw": "randread",
-                "ioengine": "io_uring",
-                "iodepth": 32,
-                "direct": true,
-                "block_size_bytes": 4096,
-                "size_bytes": 5368709120,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 6.377,
-                "bytes_transferred": 5368709120,
-                "throughput_mib_per_sec": 802.759,
-                "iops": 205506.428,
-                "latency_usec": {
-                    "mean": 151.725,
-                    "p50": 134.144,
-                    "p95": 185.344,
-                    "p99": 391.168,
-                    "p99_9": 2768.896
-                },
-                "cpu_percent": {
-                    "user": 21.923,
-                    "system": 65.125,
-                    "total": 87.047
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 6,
-                "cpu": {
-                    "mean_iowait_percent": 0.0,
-                    "max_iowait_percent": 0.0
-                },
-                "device_stats": {
-                    "mean_util_percent": 62.35,
-                    "max_util_percent": 71.1,
-                    "mean_queue_depth": 20.075,
-                    "max_queue_depth": 25.66,
-                    "mean_read_await_ms": 0.105,
-                    "mean_write_await_ms": 0.25,
-                    "mean_read_mib_per_sec": 754.745,
-                    "mean_write_mib_per_sec": 0.014
-                }
-            }
-        },
-        {
-            "name": "rand_read_sync",
-            "label": "Random Read (Sync)",
-            "operation": "read",
-            "config": {
-                "rw": "randread",
-                "ioengine": "sync",
-                "iodepth": 1,
-                "direct": true,
-                "block_size_bytes": 4096,
-                "size_bytes": 2147483648,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 83.816,
-                "bytes_transferred": 2147483648,
-                "throughput_mib_per_sec": 24.434,
-                "iops": 6255.151,
-                "latency_usec": {
-                    "mean": 158.367,
-                    "p50": 115.2,
-                    "p95": 419.84,
-                    "p99": 561.152,
-                    "p99_9": 741.376
-                },
-                "cpu_percent": {
-                    "user": 1.638,
-                    "system": 3.794,
-                    "total": 5.432
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 0,
-                "cpu": {
-                    "mean_iowait_percent": 0.0,
-                    "max_iowait_percent": 0.0
-                },
-                "device_stats": {
-                    "mean_util_percent": 0.0,
-                    "max_util_percent": 0.0,
-                    "mean_queue_depth": 0.0,
-                    "max_queue_depth": 0.0,
-                    "mean_read_await_ms": 0.0,
-                    "mean_write_await_ms": 0.0,
-                    "mean_read_mib_per_sec": 0.0,
-                    "mean_write_mib_per_sec": 0.0
-                }
-            }
-        },
-        {
-            "name": "seq_to_rand",
-            "label": "Random Read After Sequential Write",
-            "operation": "read",
-            "config": {
-                "rw": "randread",
-                "ioengine": "io_uring",
-                "iodepth": 32,
-                "direct": true,
-                "block_size_bytes": 4096,
-                "size_bytes": 5368709120,
-                "filename": "testfile.img"
-            },
-            "fio": {
-                "runtime_seconds": 9.825,
-                "bytes_transferred": 5368709120,
-                "throughput_mib_per_sec": 521.067,
-                "iops": 133393.039,
-                "latency_usec": {
-                    "mean": 236.418,
-                    "p50": 234.496,
-                    "p95": 342.016,
-                    "p99": 411.648,
-                    "p99_9": 544.768
-                },
-                "cpu_percent": {
-                    "user": 14.331,
-                    "system": 42.005,
-                    "total": 56.336
-                }
-            },
-            "iostat": {
-                "device": "nvme0n1",
-                "sample_count": 10,
-                "cpu": {
-                    "mean_iowait_percent": 0.088,
-                    "max_iowait_percent": 0.63
-                },
-                "device_stats": {
-                    "mean_util_percent": 56.01,
-                    "max_util_percent": 64.0,
-                    "mean_queue_depth": 25.476,
-                    "max_queue_depth": 28.28,
-                    "mean_read_await_ms": 0.21,
-                    "mean_write_await_ms": 0.227,
-                    "mean_read_mib_per_sec": 472.252,
-                    "mean_write_mib_per_sec": 0.895
-                }
-            }
+        "device_stats": {
+          "mean_aqu_sz": 0.953,
+          "mean_util_percent": 92.579
         }
-    ]
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd128",
+      "operation": "read",
+      "iodepth": 128,
+      "fio": {
+        "throughput_mib_per_sec": 986.988,
+        "iops": 252668.916,
+        "latency_usec": {
+          "p50": 497.664,
+          "p95": 561.152,
+          "p99": 626.688,
+          "p99_9": 856.064
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.31,
+          "mean_system": 6.25,
+          "mean_total": 8.56
+        },
+        "device_stats": {
+          "mean_aqu_sz": 25.435,
+          "mean_util_percent": 28.75
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd16",
+      "operation": "write",
+      "iodepth": 16,
+      "fio": {
+        "throughput_mib_per_sec": 827.809,
+        "iops": 211919.159,
+        "latency_usec": {
+          "p50": 66.048,
+          "p95": 88.576,
+          "p99": 110.08,
+          "p99_9": 164.864
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.215,
+          "mean_system": 7.625,
+          "mean_total": 10.84
+        },
+        "device_stats": {
+          "mean_aqu_sz": 6.76,
+          "mean_util_percent": 60.35
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd4",
+      "operation": "read",
+      "iodepth": 4,
+      "fio": {
+        "throughput_mib_per_sec": 385.107,
+        "iops": 98587.439,
+        "latency_usec": {
+          "p50": 25.472,
+          "p95": 81.408,
+          "p99": 280.576,
+          "p99_9": 432.128
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.086,
+          "mean_system": 4.224,
+          "mean_total": 6.31
+        },
+        "device_stats": {
+          "mean_aqu_sz": 3.012,
+          "mean_util_percent": 70.68
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd16",
+      "operation": "read",
+      "iodepth": 16,
+      "fio": {
+        "throughput_mib_per_sec": 603.774,
+        "iops": 154566.038,
+        "latency_usec": {
+          "p50": 90.624,
+          "p95": 154.624,
+          "p99": 193.536,
+          "p99_9": 248.832
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.8,
+          "mean_system": 5.643,
+          "mean_total": 8.443
+        },
+        "device_stats": {
+          "mean_aqu_sz": 12.587,
+          "mean_util_percent": 56.96
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd8",
+      "operation": "read",
+      "iodepth": 8,
+      "fio": {
+        "throughput_mib_per_sec": 547.009,
+        "iops": 140034.188,
+        "latency_usec": {
+          "p50": 51.456,
+          "p95": 66.048,
+          "p99": 92.672,
+          "p99_9": 362.496
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.958,
+          "mean_system": 4.69,
+          "mean_total": 6.647
+        },
+        "device_stats": {
+          "mean_aqu_sz": 5.312,
+          "mean_util_percent": 50.1
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd1",
+      "operation": "read",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 48.109,
+        "iops": 12315.903,
+        "latency_usec": {
+          "p50": 78.336,
+          "p95": 81.408,
+          "p99": 120.32,
+          "p99_9": 272.384
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.792,
+          "mean_system": 0.962,
+          "mean_total": 1.754
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.933,
+          "mean_util_percent": 91.29
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd4",
+      "operation": "write",
+      "iodepth": 4,
+      "fio": {
+        "throughput_mib_per_sec": 102.662,
+        "iops": 26281.418,
+        "latency_usec": {
+          "p50": 103.936,
+          "p95": 370.688,
+          "p99": 501.76,
+          "p99_9": 708.608
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.108,
+          "mean_system": 2.253,
+          "mean_total": 3.362
+        },
+        "device_stats": {
+          "mean_aqu_sz": 3.581,
+          "mean_util_percent": 84.53
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd1",
+      "operation": "read",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 73.337,
+        "iops": 18774.189,
+        "latency_usec": {
+          "p50": 40.192,
+          "p95": 86.528,
+          "p99": 126.464,
+          "p99_9": 197.632
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.88,
+          "mean_system": 1.227,
+          "mean_total": 2.107
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.87,
+          "mean_util_percent": 86.079
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd1",
+      "operation": "write",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 54.586,
+        "iops": 13973.933,
+        "latency_usec": {
+          "p50": 20.096,
+          "p95": 261.12,
+          "p99": 415.744,
+          "p99_9": 585.728
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.996,
+          "mean_system": 1.352,
+          "mean_total": 2.349
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.921,
+          "mean_util_percent": 88.63
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd8",
+      "operation": "write",
+      "iodepth": 8,
+      "fio": {
+        "throughput_mib_per_sec": 440.904,
+        "iops": 112871.475,
+        "latency_usec": {
+          "p50": 63.744,
+          "p95": 85.504,
+          "p99": 105.984,
+          "p99_9": 1794.048
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.266,
+          "mean_system": 4.56,
+          "mean_total": 6.826
+        },
+        "device_stats": {
+          "mean_aqu_sz": 5.63,
+          "mean_util_percent": 68.44
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd128",
+      "operation": "read",
+      "iodepth": 128,
+      "fio": {
+        "throughput_mib_per_sec": 933.03,
+        "iops": 238855.581,
+        "latency_usec": {
+          "p50": 522.24,
+          "p95": 569.344,
+          "p99": 798.72,
+          "p99_9": 1613.824
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.945,
+          "mean_system": 7.52,
+          "mean_total": 10.465
+        },
+        "device_stats": {
+          "mean_aqu_sz": 9.3,
+          "mean_util_percent": 54.25
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd16",
+      "operation": "write",
+      "iodepth": 16,
+      "fio": {
+        "throughput_mib_per_sec": 831.506,
+        "iops": 212865.611,
+        "latency_usec": {
+          "p50": 63.232,
+          "p95": 96.768,
+          "p99": 112.128,
+          "p99_9": 173.056
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.27,
+          "mean_system": 7.23,
+          "mean_total": 10.5
+        },
+        "device_stats": {
+          "mean_aqu_sz": 7.025,
+          "mean_util_percent": 59.95
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd16",
+      "operation": "read",
+      "iodepth": 16,
+      "fio": {
+        "throughput_mib_per_sec": 895.105,
+        "iops": 229146.853,
+        "latency_usec": {
+          "p50": 63.744,
+          "p95": 87.552,
+          "p99": 118.272,
+          "p99_9": 201.728
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 4.535,
+          "mean_system": 8.375,
+          "mean_total": 12.91
+        },
+        "device_stats": {
+          "mean_aqu_sz": 8.6,
+          "mean_util_percent": 60.5
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd64",
+      "operation": "read",
+      "iodepth": 64,
+      "fio": {
+        "throughput_mib_per_sec": 931.332,
+        "iops": 238421.101,
+        "latency_usec": {
+          "p50": 259.072,
+          "p95": 296.96,
+          "p99": 436.224,
+          "p99_9": 692.224
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.88,
+          "mean_system": 7.39,
+          "mean_total": 10.27
+        },
+        "device_stats": {
+          "mean_aqu_sz": 8.945,
+          "mean_util_percent": 54.35
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd2",
+      "operation": "read",
+      "iodepth": 2,
+      "fio": {
+        "throughput_mib_per_sec": 250.704,
+        "iops": 64180.193,
+        "latency_usec": {
+          "p50": 23.936,
+          "p95": 33.024,
+          "p99": 150.528,
+          "p99_9": 296.96
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.139,
+          "mean_system": 3.431,
+          "mean_total": 5.57
+        },
+        "device_stats": {
+          "mean_aqu_sz": 1.49,
+          "mean_util_percent": 67.95
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd32",
+      "operation": "read",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 918.386,
+        "iops": 235106.726,
+        "latency_usec": {
+          "p50": 129.536,
+          "p95": 150.528,
+          "p99": 197.632,
+          "p99_9": 280.576
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.32,
+          "mean_system": 7.515,
+          "mean_total": 10.835
+        },
+        "device_stats": {
+          "mean_aqu_sz": 8.48,
+          "mean_util_percent": 55.6
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd2",
+      "operation": "write",
+      "iodepth": 2,
+      "fio": {
+        "throughput_mib_per_sec": 122.907,
+        "iops": 31464.202,
+        "latency_usec": {
+          "p50": 22.144,
+          "p95": 226.304,
+          "p99": 362.496,
+          "p99_9": 544.768
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.059,
+          "mean_system": 1.871,
+          "mean_total": 2.93
+        },
+        "device_stats": {
+          "mean_aqu_sz": 1.651,
+          "mean_util_percent": 79.853
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async",
+      "operation": "read",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 802.759,
+        "iops": 205506.428,
+        "latency_usec": {
+          "p50": 134.144,
+          "p95": 185.344,
+          "p99": 391.168,
+          "p99_9": 2768.896
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.105,
+          "mean_system": 8.078,
+          "mean_total": 11.183
+        },
+        "device_stats": {
+          "mean_aqu_sz": 20.075,
+          "mean_util_percent": 62.35
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd8",
+      "operation": "read",
+      "iodepth": 8,
+      "fio": {
+        "throughput_mib_per_sec": 609.524,
+        "iops": 156038.095,
+        "latency_usec": {
+          "p50": 45.824,
+          "p95": 61.184,
+          "p99": 84.48,
+          "p99_9": 179.2
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.343,
+          "mean_system": 5.753,
+          "mean_total": 8.097
+        },
+        "device_stats": {
+          "mean_aqu_sz": 6.05,
+          "mean_util_percent": 59.733
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd4",
+      "operation": "read",
+      "iodepth": 4,
+      "fio": {
+        "throughput_mib_per_sec": 105.015,
+        "iops": 26883.807,
+        "latency_usec": {
+          "p50": 86.528,
+          "p95": 362.496,
+          "p99": 481.28,
+          "p99_9": 675.84
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.148,
+          "mean_system": 1.852,
+          "mean_total": 3.0
+        },
+        "device_stats": {
+          "mean_aqu_sz": 3.654,
+          "mean_util_percent": 84.168
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd32",
+      "operation": "write",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 484.275,
+        "iops": 123974.462,
+        "latency_usec": {
+          "p50": 238.592,
+          "p95": 407.552,
+          "p99": 509.952,
+          "p99_9": 2113.536
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.242,
+          "mean_system": 6.005,
+          "mean_total": 8.248
+        },
+        "device_stats": {
+          "mean_aqu_sz": 20.065,
+          "mean_util_percent": 55.65
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_sync",
+      "operation": "write",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 161.91,
+        "iops": 41448.968,
+        "latency_usec": {
+          "p50": 22.4,
+          "p95": 26.24,
+          "p99": 33.024,
+          "p99_9": 73.216
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.214,
+          "mean_system": 2.212,
+          "mean_total": 3.425
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.714,
+          "mean_util_percent": 66.531
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd8",
+      "operation": "write",
+      "iodepth": 8,
+      "fio": {
+        "throughput_mib_per_sec": 738.284,
+        "iops": 189000.721,
+        "latency_usec": {
+          "p50": 31.872,
+          "p95": 60.672,
+          "p99": 69.12,
+          "p99_9": 246.784
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.647,
+          "mean_system": 5.84,
+          "mean_total": 8.487
+        },
+        "device_stats": {
+          "mean_aqu_sz": 3.707,
+          "mean_util_percent": 54.067
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd1",
+      "operation": "write",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 161.744,
+        "iops": 41406.413,
+        "latency_usec": {
+          "p50": 19.84,
+          "p95": 22.656,
+          "p99": 29.568,
+          "p99_9": 67.072
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.382,
+          "mean_system": 2.334,
+          "mean_total": 3.716
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.707,
+          "mean_util_percent": 67.492
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd4",
+      "operation": "read",
+      "iodepth": 4,
+      "fio": {
+        "throughput_mib_per_sec": 348.477,
+        "iops": 89210.141,
+        "latency_usec": {
+          "p50": 39.168,
+          "p95": 50.944,
+          "p99": 64.256,
+          "p99_9": 142.336
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.978,
+          "mean_system": 3.7,
+          "mean_total": 5.678
+        },
+        "device_stats": {
+          "mean_aqu_sz": 2.977,
+          "mean_util_percent": 54.25
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd8",
+      "operation": "read",
+      "iodepth": 8,
+      "fio": {
+        "throughput_mib_per_sec": 352.799,
+        "iops": 90316.624,
+        "latency_usec": {
+          "p50": 80.384,
+          "p95": 120.32,
+          "p99": 146.432,
+          "p99_9": 185.344
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.682,
+          "mean_system": 3.428,
+          "mean_total": 5.11
+        },
+        "device_stats": {
+          "mean_aqu_sz": 6.18,
+          "mean_util_percent": 59.883
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd32",
+      "operation": "read",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 876.712,
+        "iops": 224438.356,
+        "latency_usec": {
+          "p50": 125.44,
+          "p95": 236.544,
+          "p99": 309.248,
+          "p99_9": 403.456
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 4.33,
+          "mean_system": 7.66,
+          "mean_total": 11.99
+        },
+        "device_stats": {
+          "mean_aqu_sz": 20.805,
+          "mean_util_percent": 51.4
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd4",
+      "operation": "write",
+      "iodepth": 4,
+      "fio": {
+        "throughput_mib_per_sec": 504.309,
+        "iops": 129103.177,
+        "latency_usec": {
+          "p50": 25.728,
+          "p95": 36.096,
+          "p99": 49.408,
+          "p99_9": 81.408
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.43,
+          "mean_system": 5.152,
+          "mean_total": 7.583
+        },
+        "device_stats": {
+          "mean_aqu_sz": 2.438,
+          "mean_util_percent": 61.4
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd64",
+      "operation": "read",
+      "iodepth": 64,
+      "fio": {
+        "throughput_mib_per_sec": 896.28,
+        "iops": 229447.702,
+        "latency_usec": {
+          "p50": 264.192,
+          "p95": 391.168,
+          "p99": 468.992,
+          "p99_9": 577.536
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.45,
+          "mean_system": 6.475,
+          "mean_total": 8.925
+        },
+        "device_stats": {
+          "mean_aqu_sz": 36.88,
+          "mean_util_percent": 36.85
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand",
+      "operation": "read",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 521.067,
+        "iops": 133393.039,
+        "latency_usec": {
+          "p50": 234.496,
+          "p95": 342.016,
+          "p99": 411.648,
+          "p99_9": 544.768
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.351,
+          "mean_system": 5.27,
+          "mean_total": 7.621
+        },
+        "device_stats": {
+          "mean_aqu_sz": 25.476,
+          "mean_util_percent": 56.01
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd1",
+      "operation": "read",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 126.101,
+        "iops": 32281.756,
+        "latency_usec": {
+          "p50": 22.912,
+          "p95": 28.8,
+          "p99": 119.296,
+          "p99_9": 342.016
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.16,
+          "mean_system": 1.889,
+          "mean_total": 3.049
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.813,
+          "mean_util_percent": 78.4
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_sync",
+      "operation": "write",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 14.505,
+        "iops": 3713.167,
+        "latency_usec": {
+          "p50": 276.48,
+          "p95": 509.952,
+          "p99": 675.84,
+          "p99_9": 864.256
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.745,
+          "mean_system": 1.007,
+          "mean_total": 1.752
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.993,
+          "mean_util_percent": 93.65
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async",
+      "operation": "write",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 497.45,
+        "iops": 3979.597,
+        "latency_usec": {
+          "p50": 7831.552,
+          "p95": 14745.6,
+          "p99": 16318.464,
+          "p99_9": 19791.872
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.53,
+          "mean_system": 0.32,
+          "mean_total": 0.85
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.0,
+          "mean_util_percent": 0.0
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd64",
+      "operation": "write",
+      "iodepth": 64,
+      "fio": {
+        "throughput_mib_per_sec": 705.234,
+        "iops": 180539.945,
+        "latency_usec": {
+          "p50": 313.344,
+          "p95": 544.768,
+          "p99": 684.032,
+          "p99_9": 3784.704
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.473,
+          "mean_system": 5.833,
+          "mean_total": 8.307
+        },
+        "device_stats": {
+          "mean_aqu_sz": 26.287,
+          "mean_util_percent": 36.533
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async",
+      "operation": "read",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 2752.688,
+        "iops": 22021.505,
+        "latency_usec": {
+          "p50": 1400.832,
+          "p95": 1728.512,
+          "p99": 1990.656,
+          "p99_9": 2375.68
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.945,
+          "mean_system": 3.09,
+          "mean_total": 4.035
+        },
+        "device_stats": {
+          "mean_aqu_sz": 17.38,
+          "mean_util_percent": 43.05
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_sync",
+      "operation": "read",
+      "iodepth": 1,
+      "fio": {
+        "throughput_mib_per_sec": 127.506,
+        "iops": 32641.514,
+        "latency_usec": {
+          "p50": 28.8,
+          "p95": 31.872,
+          "p99": 95.744,
+          "p99_9": 329.728
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.914,
+          "mean_system": 1.771,
+          "mean_total": 2.685
+        },
+        "device_stats": {
+          "mean_aqu_sz": 0.802,
+          "mean_util_percent": 77.281
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd2",
+      "operation": "read",
+      "iodepth": 2,
+      "fio": {
+        "throughput_mib_per_sec": 48.073,
+        "iops": 12306.652,
+        "latency_usec": {
+          "p50": 113.152,
+          "p95": 378.88,
+          "p99": 501.76,
+          "p99_9": 667.648
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 0.778,
+          "mean_system": 1.173,
+          "mean_total": 1.952
+        },
+        "device_stats": {
+          "mean_aqu_sz": 1.891,
+          "mean_util_percent": 92.407
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd32",
+      "operation": "write",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 432.159,
+        "iops": 110632.623,
+        "latency_usec": {
+          "p50": 268.288,
+          "p95": 460.8,
+          "p99": 561.152,
+          "p99_9": 1597.44
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.072,
+          "mean_system": 5.004,
+          "mean_total": 7.076
+        },
+        "device_stats": {
+          "mean_aqu_sz": 19.536,
+          "mean_util_percent": 51.18
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd32",
+      "operation": "read",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 904.993,
+        "iops": 231678.303,
+        "latency_usec": {
+          "p50": 132.096,
+          "p95": 152.576,
+          "p99": 189.44,
+          "p99_9": 238.592
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.14,
+          "mean_system": 7.165,
+          "mean_total": 10.305
+        },
+        "device_stats": {
+          "mean_aqu_sz": 8.545,
+          "mean_util_percent": 56.75
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd2",
+      "operation": "write",
+      "iodepth": 2,
+      "fio": {
+        "throughput_mib_per_sec": 296.554,
+        "iops": 75917.753,
+        "latency_usec": {
+          "p50": 21.888,
+          "p95": 26.752,
+          "p99": 38.656,
+          "p99_9": 80.384
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.904,
+          "mean_system": 3.39,
+          "mean_total": 5.294
+        },
+        "device_stats": {
+          "mean_aqu_sz": 1.23,
+          "mean_util_percent": 57.4
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd128",
+      "operation": "write",
+      "iodepth": 128,
+      "fio": {
+        "throughput_mib_per_sec": 669.281,
+        "iops": 171335.948,
+        "latency_usec": {
+          "p50": 708.608,
+          "p95": 995.328,
+          "p99": 1220.608,
+          "p99_9": 4046.848
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.3,
+          "mean_system": 7.403,
+          "mean_total": 9.703
+        },
+        "device_stats": {
+          "mean_aqu_sz": 48.92,
+          "mean_util_percent": 32.1
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd2",
+      "operation": "read",
+      "iodepth": 2,
+      "fio": {
+        "throughput_mib_per_sec": 68.278,
+        "iops": 17479.18,
+        "latency_usec": {
+          "p50": 80.384,
+          "p95": 276.48,
+          "p99": 288.768,
+          "p99_9": 358.4
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 1.093,
+          "mean_system": 1.587,
+          "mean_total": 2.68
+        },
+        "device_stats": {
+          "mean_aqu_sz": 1.815,
+          "mean_util_percent": 85.6
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async",
+      "operation": "write",
+      "iodepth": 32,
+      "fio": {
+        "throughput_mib_per_sec": 538.551,
+        "iops": 137868.939,
+        "latency_usec": {
+          "p50": 171.008,
+          "p95": 305.152,
+          "p99": 1011.712,
+          "p99_9": 8585.216
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 7.766,
+          "mean_system": 9.659,
+          "mean_total": 17.424
+        },
+        "device_stats": {
+          "mean_aqu_sz": 13.388,
+          "mean_util_percent": 79.944
+        }
+      }
+    },
+    {
+      "test_name": "seq_to_rand_qd128",
+      "operation": "read",
+      "iodepth": 128,
+      "fio": {
+        "throughput_mib_per_sec": 948.148,
+        "iops": 242725.926,
+        "latency_usec": {
+          "p50": 505.856,
+          "p95": 643.072,
+          "p99": 741.376,
+          "p99_9": 856.064
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.37,
+          "mean_system": 6.87,
+          "mean_total": 10.24
+        },
+        "device_stats": {
+          "mean_aqu_sz": 21.82,
+          "mean_util_percent": 46.3
+        }
+      }
+    },
+    {
+      "test_name": "seq_read_async_qd16",
+      "operation": "read",
+      "iodepth": 16,
+      "fio": {
+        "throughput_mib_per_sec": 929.22,
+        "iops": 237880.218,
+        "latency_usec": {
+          "p50": 62.208,
+          "p95": 80.384,
+          "p99": 102.912,
+          "p99_9": 203.776
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.385,
+          "mean_system": 7.155,
+          "mean_total": 9.54
+        },
+        "device_stats": {
+          "mean_aqu_sz": 8.445,
+          "mean_util_percent": 54.3
+        }
+      }
+    },
+    {
+      "test_name": "rand_read_async_qd64",
+      "operation": "read",
+      "iodepth": 64,
+      "fio": {
+        "throughput_mib_per_sec": 932.605,
+        "iops": 238746.812,
+        "latency_usec": {
+          "p50": 264.192,
+          "p95": 284.672,
+          "p99": 317.44,
+          "p99_9": 382.976
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.875,
+          "mean_system": 7.37,
+          "mean_total": 10.245
+        },
+        "device_stats": {
+          "mean_aqu_sz": 8.55,
+          "mean_util_percent": 55.15
+        }
+      }
+    },
+    {
+      "test_name": "rand_write_async_qd128",
+      "operation": "write",
+      "iodepth": 128,
+      "fio": {
+        "throughput_mib_per_sec": 779.003,
+        "iops": 199424.876,
+        "latency_usec": {
+          "p50": 602.112,
+          "p95": 823.296,
+          "p99": 1028.096,
+          "p99_9": 4423.68
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 3.005,
+          "mean_system": 8.76,
+          "mean_total": 11.765
+        },
+        "device_stats": {
+          "mean_aqu_sz": 52.805,
+          "mean_util_percent": 34.95
+        }
+      }
+    },
+    {
+      "test_name": "seq_write_async_qd64",
+      "operation": "write",
+      "iodepth": 64,
+      "fio": {
+        "throughput_mib_per_sec": 637.609,
+        "iops": 163227.895,
+        "latency_usec": {
+          "p50": 366.592,
+          "p95": 577.536,
+          "p99": 708.608,
+          "p99_9": 3391.488
+        }
+      },
+      "iostat": {
+        "system_cpu_percent": {
+          "mean_user": 2.18,
+          "mean_system": 6.8,
+          "mean_total": 8.98
+        },
+        "device_stats": {
+          "mean_aqu_sz": 34.507,
+          "mean_util_percent": 41.7
+        }
+      }
+    }
+  ]
 }
