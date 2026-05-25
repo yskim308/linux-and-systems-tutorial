@@ -13,8 +13,8 @@ kill $MONITOR_PID
 sleep 45
 
 echo "Starting Heavy JS Tabs Test..."
-sleep 5
 ./monitor heavy.csv &
+sleep 5
 MONITOR_PID=$!
 uv run run_browser_tests.py --type heavy
 sleep 10
@@ -22,3 +22,6 @@ kill $MONITOR_PID
 
 # --- Plot ---
 uv run  plot.py
+
+# remove binary after
+rm monitor
