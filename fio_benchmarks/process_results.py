@@ -58,6 +58,8 @@ def build_run(path):
                 "p99": usec(stats["clat_ns"]["percentile"]["99.000000"]),
                 "p99_9": usec(stats["clat_ns"]["percentile"]["99.900000"]),
             },
+            "usr_cpu": round(job.get("usr_cpu", 0.0), 3),
+            "sys_cpu": round(job.get("sys_cpu", 0.0), 3),
         },
         "iostat": iostat_data,
     }

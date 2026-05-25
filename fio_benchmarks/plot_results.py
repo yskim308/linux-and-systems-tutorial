@@ -46,6 +46,15 @@ def main():
     plot_qd_vs_latency_workload(summary, "seq_write_async_qd", "06_seq_write_async_latency.png")
     plot_qd_vs_latency_workload(summary, "rand_read_async_qd", "07_rand_read_async_latency.png")
     plot_qd_vs_latency_workload(summary, "rand_write_async_qd", "08_rand_write_async_latency.png")
+    plot_qd_vs_iops_workload(summary, "seq_read_async_qd", "09_seq_read_async_iops.png", SYNC_COLOR)
+    plot_qd_vs_iops_workload(summary, "seq_write_async_qd", "10_seq_write_async_iops.png", POS_CHANGE)
+    plot_qd_vs_iops_workload(summary, "rand_read_async_qd", "11_rand_read_async_iops.png", ASYNC_COLOR)
+    plot_qd_vs_iops_workload(summary, "rand_write_async_qd", "12_rand_write_async_iops.png", NEG_CHANGE)
+    plot_requested_vs_actual_aqu(summary)
+    plot_resource_saturation(summary, "seq_read_async_qd", "14_seq_read_async_saturation.png")
+    plot_resource_saturation(summary, "seq_write_async_qd", "15_seq_write_async_saturation.png")
+    plot_resource_saturation(summary, "rand_read_async_qd", "16_rand_read_async_saturation.png")
+    plot_resource_saturation(summary, "rand_write_async_qd", "17_rand_write_async_saturation.png")
 
 
 def save_plot(figure, filename):
@@ -225,6 +234,129 @@ def plot_qd_vs_latency_workload(summary, prefix, filename):
     axis.set_xscale("log", base=2)
     axis.set_xticks(qds)
     axis.set_xticklabels([str(qd) for qd in qds])
+    axis.grid(True, which="both", linestyle="--", alpha=0.5)
+    axis.legend(fontsize=10)
+
+    save_plot(figure, filename)
+
+
+def plot_qd_vs_iops_workload(summary, prefix, filename, color):
+    figure, axis1 = plt.subplots(figsize=(8, 6))
+
+    qds = [1, 2, 4, 8, 16, 32, 64, 128]
+    iops_vals = []
+    p99_latencies = []
+
+    for qd in qds:
+        run_key = f"{prefix}{qd}"
+        if run_key in summary:
+            iops_vals.append(summary[run_key]["fio"]["iops"])
+            p99_latencies.append(summary[run_key]["fio"]["latency_usec"]["p99"])
+        else:
+            iops_vals.append(0.0)
+            p99_latencies.append(0.0)
+
+    # Plot IOPS on the left y-axis (linear scale starting at 0)
+    line1 = axis1.plot(qds, iops_vals, marker="o", linewidth=2.0, label="IOPS (Left)", color=color)
+    axis1.set_xlabel("Queue Depth (QD)", fontsize=11)
+    axis1.set_ylabel("IOPS", fontsize=11)
+    axis1.set_xscale("log", base=2)
+    axis1.set_xticks(qds)
+    axis1.set_xticklabels([str(qd) for qd in qds])
+    axis1.set_ylim(bottom=0)
+    axis1.grid(True, which="both", linestyle="--", alpha=0.5)
+
+    # Create twin axis for p99 Latency on the right y-axis (log scale)
+    axis2 = axis1.twinx()
+    line2 = axis2.plot(qds, p99_latencies, marker="s", linestyle="--", linewidth=2.0, label="p99 Latency (Right)", color="#7F7F7F")
+    axis2.set_ylabel("p99 Latency (μs)", fontsize=11)
+    axis2.set_yscale("log")
+    axis2.grid(False)  # Avoid overlapping grid lines
+
+    # Combine legends from both axes
+    lines = line1 + line2
+    labels = [l.get_label() for l in lines]
+    axis1.legend(lines, labels, loc="upper left", fontsize=10)
+
+    save_plot(figure, filename)
+
+
+def plot_requested_vs_actual_aqu(summary):
+    figure, axis = plt.subplots(figsize=(8, 6))
+
+    qds = [1, 2, 4, 8, 16, 32, 64, 128]
+    workloads = [
+        ("Seq Read Async", "seq_read_async_qd", SYNC_COLOR),
+        ("Seq Write Async", "seq_write_async_qd", POS_CHANGE),
+        ("Rand Read Async", "rand_read_async_qd", ASYNC_COLOR),
+        ("Rand Write Async", "rand_write_async_qd", NEG_CHANGE),
+    ]
+
+    for label, prefix, color in workloads:
+        actual_aqus = []
+        for qd in qds:
+            run_key = f"{prefix}{qd}"
+            if run_key in summary:
+                iostat_data = summary[run_key].get("iostat", {})
+                device_stats = iostat_data.get("device_stats", {})
+                aqu = device_stats.get("mean_aqu_sz", 0.0)
+                actual_aqus.append(aqu)
+            else:
+                actual_aqus.append(0.0)
+
+        axis.plot(qds, actual_aqus, marker="o", linewidth=2.0, label=label, color=color)
+
+    # Plot diagonal reference line showing Requested = Actual (y = x)
+    axis.plot(qds, qds, linestyle="--", color="#7F7F7F", alpha=0.7, label="Perfect 1:1 Scale (y = x)")
+
+    axis.set_xlabel("Requested Queue Depth (FIO QD)", fontsize=11)
+    axis.set_ylabel("Actual Queue Size (iostat aqu-sz)", fontsize=11)
+    axis.set_xscale("log", base=2)
+    axis.set_yscale("log", base=2)
+    axis.set_xticks(qds)
+    axis.set_xticklabels([str(qd) for qd in qds])
+    axis.set_yticks(qds)
+    axis.set_yticklabels([str(qd) for qd in qds])
+    axis.grid(True, which="both", linestyle="--", alpha=0.5)
+    axis.legend(fontsize=10)
+
+    save_plot(figure, "13_requested_vs_actual_aqu.png")
+
+
+def plot_resource_saturation(summary, prefix, filename):
+    figure, axis = plt.subplots(figsize=(8, 6))
+
+    qds = [1, 2, 4, 8, 16, 32, 64, 128]
+    cpu_utils = []
+    nvme_utils = []
+
+    for qd in qds:
+        run_key = f"{prefix}{qd}"
+        if run_key in summary:
+            fio_data = summary[run_key]["fio"]
+            total_cpu = fio_data.get("usr_cpu", 0.0) + fio_data.get("sys_cpu", 0.0)
+            
+            iostat_data = summary[run_key].get("iostat", {})
+            device_stats = iostat_data.get("device_stats", {})
+            nvme_util = device_stats.get("mean_util_percent", 0.0)
+            
+            cpu_utils.append(total_cpu)
+            nvme_utils.append(nvme_util)
+        else:
+            cpu_utils.append(0.0)
+            nvme_utils.append(0.0)
+
+    # Plot NVMe Disk Util (Orange, solid)
+    axis.plot(qds, nvme_utils, marker="o", linewidth=2.5, label="NVMe Disk Utilization (%)", color=ASYNC_COLOR)
+    # Plot CPU Util (Blue, dashed)
+    axis.plot(qds, cpu_utils, marker="s", linestyle="--", linewidth=2.5, label="Total CPU Utilization (%)", color=SYNC_COLOR)
+
+    axis.set_xlabel("Queue Depth (QD)", fontsize=11)
+    axis.set_ylabel("Resource Utilization (%)", fontsize=11)
+    axis.set_xscale("log", base=2)
+    axis.set_xticks(qds)
+    axis.set_xticklabels([str(qd) for qd in qds])
+    axis.set_ylim(0, 105)
     axis.grid(True, which="both", linestyle="--", alpha=0.5)
     axis.legend(fontsize=10)
 
