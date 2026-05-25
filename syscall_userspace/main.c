@@ -1,15 +1,21 @@
+#include <signal.h>
 #include <stdio.h>
 #include <sys/syscall.h>
 #include <time.h>
 #include <unistd.h>
 
-#define CSV_FILE "utilization.csv"
+volatile sig_atomic_t keep_running = 1;
+
+void handle_signal(int sig) { keep_running = 0; }
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
-    perror("Usage: ./main path/to/file");
+    fprintf(stderr, "Usage: %s path/to/file\n", argv[0]);
     return 1;
   }
+
+  signal(SIGTERM, handle_signal);
+  signal(SIGINT, handle_signal);
 
   FILE *fp = fopen(argv[1], "w");
 
@@ -21,7 +27,7 @@ int main(int argc, char *argv[]) {
   fprintf(fp, "time,utilization\n");
   fflush(fp);
 
-  for (;;) {
+  while (keep_running) {
     long result = syscall(491);
 
     if (result < 0) {
@@ -44,6 +50,8 @@ int main(int argc, char *argv[]) {
     sleep(1);
   }
 
+  printf("Shutting down cleanly...\n");
   fclose(fp);
+
   return 0;
 }

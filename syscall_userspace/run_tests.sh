@@ -1,27 +1,41 @@
 #!/bin/bash
+set -euo pipefail
 
 echo "compiling C program"
 gcc main.c -o monitor
 
-echo "Starting Regular Tabs Test..."
-./monitor regular.csv &  MONITOR_PID=$!
-sleep 5
-uv run run_browser_tests.py --type regular
-sleep 10
-kill $MONITOR_PID
+run_monitor_test () {
+    local csv=$1
+    local type=$2
+
+    echo "Starting $type Test..."
+
+    ./monitor "$csv" &
+    local pid=$!
+
+    echo "monitor pid = $pid"
+
+    sleep 5
+
+    uv run run_browser_tests.py --type "$type"
+
+    sleep 10
+
+    echo "Stopping monitor..."
+
+    kill -TERM "$pid"
+
+    wait "$pid"
+
+    echo "Monitor stopped."
+}
+
+run_monitor_test regular.csv regular
 
 sleep 45
 
-echo "Starting Heavy JS Tabs Test..."
-./monitor heavy.csv &
-sleep 5
-MONITOR_PID=$!
-uv run run_browser_tests.py --type heavy
-sleep 10
-kill $MONITOR_PID
+run_monitor_test heavy.csv heavy
 
-# --- Plot ---
-uv run  plot.py
+uv run plot.py
 
-# remove binary after
-rm monitor
+rm -f monitor
