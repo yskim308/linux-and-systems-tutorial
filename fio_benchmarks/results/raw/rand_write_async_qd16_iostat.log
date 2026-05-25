@@ -1,0 +1,24 @@
+Linux 7.0.9 (kyle-XPS-15-9570) 	05/25/2026 	_x86_64_	(8 CPU)
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           5.79    0.00    8.43    0.88    0.00   84.91
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+loop2            1.00      1.00     0.00   0.00    0.00     1.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.00
+nvme0n1        401.00  14700.00   874.00  68.55    0.21    36.66 160097.00 640620.00    66.00   0.04    0.04     4.00    0.00      0.00     0.00   0.00    0.00     0.00   16.00    0.69    6.00  58.70
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           3.53    0.00    8.70    0.13    0.00   87.64
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1         77.00    908.00   150.00  66.08    0.25    11.79 211190.00 844760.00     0.00   0.00    0.04     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    7.96  68.60
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.90    0.00    6.55    0.00    0.00   90.55
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1         10.00    424.00    59.00  85.51    0.30    42.40 153054.00 612216.00     0.00   0.00    0.04     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    5.56  52.10
+

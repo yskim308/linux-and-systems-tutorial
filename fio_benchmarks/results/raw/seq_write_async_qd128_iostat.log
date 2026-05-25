@@ -1,0 +1,30 @@
+Linux 7.0.9 (kyle-XPS-15-9570) 	05/25/2026 	_x86_64_	(8 CPU)
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           4.64    0.00    7.64    0.13    0.00   87.59
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1         36.00   2116.00    30.00  45.45    0.28    58.78 124594.00 498376.00     0.00   0.00    0.38     4.00    0.00      0.00     0.00   0.00    0.00     0.00    1.00    2.00   46.74  32.20
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.89    0.00    9.56    0.00    0.00   87.55
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 171803.00 687212.00     0.00   0.00    0.37     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00   63.15  41.30
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.88    0.00    9.40    0.00    0.00   87.72
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 173930.00 695720.00     0.00   0.00    0.36     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00   63.36  42.40
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           1.13    0.00    3.25    0.00    0.00   95.62
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          3.00    160.00     0.00   0.00    0.67    53.33 53962.00 215848.00     0.00   0.00    0.38     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00   20.25  12.60
+

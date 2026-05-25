@@ -1,0 +1,58 @@
+Linux 7.0.9 (kyle-XPS-15-9570) 	05/25/2026 	_x86_64_	(8 CPU)
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           3.32    0.00    3.19    0.13    0.00   93.36
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1         46.00   2236.00    78.00  62.90    0.46    48.61 56733.00 226936.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    1.06  47.20
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           1.92    0.00    3.72    0.00    0.00   94.36
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 76176.00 304700.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    1.39  61.30
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           1.67    0.00    3.85    0.00    0.00   94.48
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 76072.00 304288.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    1.39  64.10
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.70    0.00    3.99    0.00    0.00   93.31
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 75339.00 301356.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    1.38  64.90
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           1.80    0.00    3.47    0.13    0.00   94.60
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 76271.00 305164.00    20.00   0.03    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    1.00    3.00    1.40  67.00
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           1.93    0.00    3.47    0.00    0.00   94.60
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 75649.00 302596.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    1.39  64.70
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.43    0.00    4.22    0.00    0.00   93.35
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 76346.00 305384.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    1.42  67.40
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.88    0.00    1.01    0.00    0.00   98.12
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1         12.00    316.00    30.00  71.43    0.33    26.33 11704.00  46816.00     0.00   0.00    0.02     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.24  12.40
+

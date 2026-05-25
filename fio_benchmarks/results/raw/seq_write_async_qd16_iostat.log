@@ -1,0 +1,23 @@
+Linux 7.0.9 (kyle-XPS-15-9570) 	05/25/2026 	_x86_64_	(8 CPU)
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           5.52    0.00    6.52    0.13    0.00   87.83
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1         36.00   2116.00    30.00  45.45    0.31    58.78 160049.00 640200.00     0.00   0.00    0.04     4.00    0.00      0.00     0.00   0.00    0.00     0.00    1.00    1.00    6.15  54.00
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           3.77    0.00    8.29    0.00    0.00   87.94
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00 213760.00 855036.00     0.00   0.00    0.04     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    8.18  70.00
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.77    0.00    6.17    0.00    0.00   91.06
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          3.00    160.00     0.00   0.00    0.33    53.33 150480.00 601920.00     0.00   0.00    0.04     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    5.87  49.90
+
