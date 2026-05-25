@@ -5,8 +5,13 @@
 
 #define CSV_FILE "utilization.csv"
 
-int main() {
-  FILE *fp = fopen(CSV_FILE, "w");
+int main(int argc, char *argv[]) {
+  if (argc != 2) {
+    perror("Usage: ./main path/to/file");
+    return 1;
+  }
+
+  FILE *fp = fopen(argv[1], "w");
 
   if (!fp) {
     perror("Failed to open CSV file");
