@@ -42,6 +42,10 @@ def main():
     plot_throughput_baseline(summary, workloads)
     plot_iops_pct_change(summary, workloads)
     plot_throughput_pct_change(summary, workloads)
+    plot_qd_vs_latency_workload(summary, "seq_read_async_qd", "05_seq_read_async_latency.png")
+    plot_qd_vs_latency_workload(summary, "seq_write_async_qd", "06_seq_write_async_latency.png")
+    plot_qd_vs_latency_workload(summary, "rand_read_async_qd", "07_rand_read_async_latency.png")
+    plot_qd_vs_latency_workload(summary, "rand_write_async_qd", "08_rand_write_async_latency.png")
 
 
 def save_plot(figure, filename):
@@ -195,6 +199,36 @@ def plot_throughput_pct_change(summary, workloads):
 
     add_v_pct_value_labels(axis, bars, decimals=1)
     save_plot(figure, "04_throughput_pct_change.png")
+
+
+def plot_qd_vs_latency_workload(summary, prefix, filename):
+    figure, axis = plt.subplots(figsize=(8, 6))
+
+    qds = [1, 2, 4, 8, 16, 32, 64, 128]
+    p50_latencies = []
+    p99_latencies = []
+
+    for qd in qds:
+        run_key = f"{prefix}{qd}"
+        if run_key in summary:
+            p50_latencies.append(summary[run_key]["fio"]["latency_usec"]["p50"])
+            p99_latencies.append(summary[run_key]["fio"]["latency_usec"]["p99"])
+        else:
+            p50_latencies.append(0.0)
+            p99_latencies.append(0.0)
+
+    axis.plot(qds, p50_latencies, marker="o", linewidth=2.0, label="p50 Latency", color=SYNC_COLOR)
+    axis.plot(qds, p99_latencies, marker="s", linewidth=2.0, label="p99 Latency", color=NEG_CHANGE)
+
+    axis.set_xlabel("Queue Depth (QD)", fontsize=11)
+    axis.set_ylabel("Latency (μs)", fontsize=11)
+    axis.set_xscale("log", base=2)
+    axis.set_xticks(qds)
+    axis.set_xticklabels([str(qd) for qd in qds])
+    axis.grid(True, which="both", linestyle="--", alpha=0.5)
+    axis.legend(fontsize=10)
+
+    save_plot(figure, filename)
 
 
 if __name__ == "__main__":
